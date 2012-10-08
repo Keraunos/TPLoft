@@ -93,14 +93,33 @@ public class Case {
     
     /**
      * Fonction de DEBUG. Affiche l'etat de la Case.
+     * 
+     * @param mode Mode d'affichage.
      */
-    public String afficherCase() {
-        String contenu = " ";
+    public String afficherCase(int mode) {
         
-        if (!this.occupants.isEmpty()) contenu = "N";
+        int nbNeuneus = this.occupants.size();
+        int nbNourritures = this.denrees.size();
         
-        if (!this.denrees.isEmpty()) contenu += this.denrees.size();
-        else contenu += " ";
+        String contenu = "";
+        
+        switch(mode) {
+            // indiquer presence de Neuneus et nb de denrees s'il y en a
+            case 0:
+                contenu += (nbNeuneus > 0) ? "N" : " ";
+                contenu += (nbNourritures > 0) ? nbNourritures : " ";
+                break;
+            // indiquer presence de Neuneus uniquement et donner leur nombre
+            case 1:
+                contenu += (nbNeuneus > 0) ? nbNeuneus : " ";
+                break;
+            // indiquer presence de Nourritures uniquement et donneur leur nombre
+            case 2:
+                contenu += (nbNourritures > 0) ? nbNourritures : " ";
+                break;
+            default:
+                contenu += "X";
+        }
         
         return "[" + contenu + "]";
     }

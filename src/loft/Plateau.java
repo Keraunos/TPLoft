@@ -41,18 +41,21 @@ public class Plateau {
         // creation de la population initiale
         Case c;
         for (int k = 0 ; k < initPopulation; k++){
-            c = cases[(int) (Math.random()*w)][(int) (Math.random()*h)];
-            if (c.estLibre()) c.ajouterNeuneu();
+            
+            do c = getRandCase();
+            while (!c.estLibre());
+            
+            c.ajouterNeuneu();
         }
         
         // creation des denrees initiales
         Nourriture n;
         for (int k = 0; k < initNourriture; k++) {
-            c = cases[(int) (Math.random()*w)][(int) (Math.random()*h)];
+            c = getRandCase();
             c.ajouterNourriture();
         }
         
-        if (Config.DEBUG_MODE) this.afficherPlateau();
+        if (Config.DEBUG_MODE) this.afficherPlateau(0);
 
     }
     
@@ -101,14 +104,33 @@ public class Plateau {
     
     
     /**
-     * Fonction de DEBUG. Affiche l'etat du plateau.
+     * Retourne une Case aleatoirement.
+     * 
+     * @return Une Case choisie aleatoirement.
      */
-    public void afficherPlateau() {
+    private Case getRandCase() {
+        return cases[(int) (Math.random()*w)][(int) (Math.random()*h)];
+    }
+    
+    
+    /**
+     * Fonction de DEBUG. Affiche l'etat du plateau.
+     * 
+     * @param mode Mode d'affichage.
+     */
+    public void afficherPlateau(int mode) {
+        
+        String space = "";
+        switch(mode) {
+            case 0: space = "  ";   break;
+            case 1: space = " ";    break;
+            case 2: space = " ";    break;
+        }
         
         // dessiner la premiere ligne avec les coordonnees en abscisses
         System.out.print("   ");
         for (int i = 0; i < w; i++)
-            System.out.print(" "+(i-((i/10)*10))+"  ");
+            System.out.print(" " + (i-((i/10)*10)) + space);
         System.out.println("");
         
         // dessiner le reste du plateau
@@ -117,7 +139,7 @@ public class Plateau {
             System.out.print(" "+(j-((j/10)*10))+" ");
             // ligne de cases
             for (int i = 0; i < w; i++)
-                System.out.print(cases[i][j].afficherCase());
+                System.out.print(cases[i][j].afficherCase(mode));
             System.out.println("");
         }
     }

@@ -1,6 +1,7 @@
 package loft;
 
 //import loft.exception.LoftException;
+//import java.util.ArrayList;
 
 /**
  * Classe Main pour le projet de TP "Loft". Lance le jeu.
