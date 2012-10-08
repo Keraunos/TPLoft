@@ -1,7 +1,7 @@
 package loft;
 
 /**
- * Class Vorace.
+ * Classe Vorace.
  * Un Vorace est un Neuneu qui n'ecoute que son ventre.
  * 
  * @author Marlene, Gaetan

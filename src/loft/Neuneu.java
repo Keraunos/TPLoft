@@ -1,7 +1,7 @@
 package loft;
 
 /**
- * Class Neuneu. Un Neuneu est un etre vivant sur les Cases du Plateau.
+ * Classe Neuneu. Un Neuneu est un etre vivant sur les Cases du Plateau.
  * Les Neuneus peuvent se deplacer, interagir entre eux (reproduction, parfois
  * cannibalisme) et manger des Nourritures. Quand un Neuneu n'a plus d'energie,
  * il est exclu du Plateau.

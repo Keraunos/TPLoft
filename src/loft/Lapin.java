@@ -1,7 +1,7 @@
 package loft;
 
 /**
- * Class Lapin.
+ * Classe Lapin.
  * Un Lapin est un Neuneu particulierement porte sur la reproduction.
  * 
  * @author Marlene, Gaetan

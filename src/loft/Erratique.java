@@ -1,7 +1,7 @@
 package loft;
 
 /**
- * Class Erratique.
+ * Classe Erratique.
  * Un Erratique est un Neuneu un peu basique, qui erre sans but precis.
  * 
  * @author Marlene, Gaetan

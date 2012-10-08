@@ -1,7 +1,7 @@
 package loft;
 
 /**
- * Class Comestible.
+ * Classe Comestible.
  * Decrit tout ce qui peut se manger, notamment les Neuneus et les Nourritures.
  * 
  * @author Marlene, Gaetan

@@ -4,7 +4,7 @@ import loft.exception.LoftException;
 import java.util.ArrayList;
 
 /**
- * Class Case. Une case est un element du plateau qui peut contenir de la
+ * Classe Case. Une case est un element du plateau qui peut contenir de la
  * nourriture et des Neuneus.
  * 
  * @author Marlene, Gaetan
@@ -19,6 +19,8 @@ public class Case {
     public Case(int x, int y){
         this.x = x;
         this.y = y;
+        this.occupants = new ArrayList<Neuneu>();
+        this.denrees = new ArrayList<Nourriture>();
     }
     
     // accesseurs pour les coordonnees de la case
@@ -38,8 +40,11 @@ public class Case {
     }
     
     
+    /**
+     * Ajoute une Nourriture generee aleatoirement sur cette Case.
+     */
     public void ajouterNourriture() {
-        
+        this.denrees.add(Nourriture.genererNourriture());
     }
     
     /**
@@ -69,7 +74,8 @@ public class Case {
         
         if (neu==null) return;
         
-        if (this.occupants.contains(neu)) this.occupants.remove(neu);
+        if (this.occupants.contains(neu))
+            this.occupants.remove(neu);
         else throw new LoftException(
                 LoftException.FailureContext.MOVING_NEUNEU,
                 LoftException.FailureType.NEUNEU_NOT_ON_SQUARE);
@@ -82,6 +88,21 @@ public class Case {
      */
     public boolean estLibre() {
         return occupants.isEmpty();
+    }
+    
+    
+    /**
+     * Fonction de DEBUG. Affiche l'etat de la Case.
+     */
+    public String afficherCase() {
+        String contenu = " ";
+        
+        if (!this.occupants.isEmpty()) contenu = "N";
+        
+        if (!this.denrees.isEmpty()) contenu += this.denrees.size();
+        else contenu += " ";
+        
+        return "[" + contenu + "]";
     }
     
 }

@@ -47,6 +47,7 @@ public class LoftException extends Exception {
         
         // Case
         CREATING_CASE,
+        GETTING_CASE,
         
         // Neuneu
         EATING_NEUNEU,
@@ -68,7 +69,7 @@ public class LoftException extends Exception {
      */
     public enum FailureType {
         NEUNEU_NOT_ON_SQUARE,
-        
+        SEARCH_OUT_OF_BOUNDS,
     }
     
 }
