@@ -8,10 +8,11 @@ package loft;
  */
 public abstract class Comestible {
     
-    private Case _case;
-    private int valeurEnerg;
-    private static int initValeurEnerg;
-    private static int valeurGustative;
+    protected Case _case;
+    protected int valeurEnerg;
+    protected static int initValeurEnerg;
+    protected static int valeurGustative;
+    
     
     public int getValeurEnerg(){
         return this.valeurEnerg;

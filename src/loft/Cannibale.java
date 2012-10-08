@@ -9,4 +9,11 @@ package loft;
  */
 public class Cannibale extends Vorace {
     
+    
+    /**
+     * Constructeur
+     */
+    public Cannibale(Case _case) {
+        super(_case);
+    }
 }

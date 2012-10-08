@@ -8,4 +8,11 @@ package loft;
  */
 public class Erratique extends Neuneu {
     
+    
+    /**
+     * Constructeur
+     */
+    public Erratique(Case _case) {
+        this._case = _case;
+    }
 }

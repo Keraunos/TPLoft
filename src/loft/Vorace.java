@@ -7,5 +7,12 @@ package loft;
  * @author Marlene, Gaetan
  */
 public class Vorace extends Neuneu {
-	
+    
+    
+    /**
+     * Constructeur
+     */
+    public Vorace(Case _case) {
+        this._case = _case;
+    }
 }

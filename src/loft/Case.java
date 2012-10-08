@@ -51,7 +51,7 @@ public class Case {
      * Ajoute un Neuneu genere aleatoirement sur cette Case.
      */
     public Neuneu ajouterNeuneu() {
-        Neuneu neu = Neuneu.genererNeuneu();
+        Neuneu neu = Neuneu.genererNeuneu(this);
         this.occupants.add(neu);
         return neu;
     }

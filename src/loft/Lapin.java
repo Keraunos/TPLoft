@@ -12,8 +12,8 @@ public class Lapin extends Neuneu {
     /**
      * Constructeur
      */
-    public Lapin() {
-        
+    public Lapin(Case _case) {
+        this._case = _case;
     }
     
 }

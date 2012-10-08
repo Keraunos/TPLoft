@@ -10,30 +10,30 @@ package loft;
  */
 public abstract class Neuneu extends Comestible {
 	
-    private int energie;
-    private int fatigueDeplacement;
-    private int fatigueCoit;
+    protected int energie;
+    protected int fatigueDeplacement;
+    protected int fatigueCoit;
     
     
-    public int getEnergie(){
+    public int getEnergie() {
         return this.energie;
     }
     
     
-    public void exclure(){
+    public void exclure() {
         
     }
     
-    public void deplacer(){
+    public void deplacer() {
         
     }
     
-    public Neuneu accoupler(Neuneu neu){
+    public Neuneu accoupler(Neuneu neu) {
         // TODO code
-        return genererNeuneu();
+        return neu;
     }
 
-    public void manger(){
+    public void manger() {
         // TODO code
     }
 
@@ -43,16 +43,16 @@ public abstract class Neuneu extends Comestible {
      * 
      * @return Neuneu
      */
-    public static Neuneu genererNeuneu() {
+    public static Neuneu genererNeuneu(Case _case) {
         
         int choix = (int) Math.floor(Math.random()*4) + 1;
         
         switch (choix) {
-            case 1: return new Lapin();
-            case 2: return new Erratique();
-            case 3: return new Vorace();
-            case 4: return new Cannibale();
-            default: return new Erratique();
+            case 1: return new Lapin(_case);
+            case 2: return new Erratique(_case);
+            case 3: return new Vorace(_case);
+            case 4: return new Cannibale(_case);
+            default: return new Erratique(_case);
         }
     }
 
