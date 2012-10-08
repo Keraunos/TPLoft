@@ -8,4 +8,12 @@ package loft;
  */
 public class Lapin extends Neuneu {
     
+    
+    /**
+     * Constructeur
+     */
+    public Lapin() {
+        
+    }
+    
 }

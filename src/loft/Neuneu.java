@@ -8,20 +8,17 @@ package loft;
  * 
  * @author Marlene, Gaetan
  */
-public abstract class Neuneu extends Comestible{
+public abstract class Neuneu extends Comestible {
 	
     private int energie;
     private int fatigueDeplacement;
     private int fatigueCoit;
-    private Plateau plateau;
+    
     
     public int getEnergie(){
         return this.energie;
     }
     
-    public Plateau getPlateau(){
-        return this.plateau;
-    }
     
     public void exclure(){
         

@@ -11,6 +11,9 @@ import loft.exception.LoftException;
  */
 public class Plateau {
     
+    // unique instance de Plateau
+    private static Plateau plateau;
+    
     // metriques
     private int w = Config.BOARD_WIDTH;
     private int h = Config.BOARD_HEIGHT;
@@ -22,10 +25,22 @@ public class Plateau {
     // tableaux de cases et de population
     private Case[][] cases; // Case[width][height]
     private ArrayList<Neuneu> population;
+    private int nbDenrees;
     
     
+    /**
+     * Recupere (ou cree) l'unique instance de Plateau
+     */
+    public static Plateau getInstance() {
+        if (plateau == null) plateau = new Plateau();
+        return plateau;
+    }
     
-    public Plateau() {
+    
+    /**
+     * Constructeur prive pour empecher l'instantiation de plusieurs Plateaux
+     */
+    private Plateau() {
         
         // construction des Cases vides
         this.cases = new Case[w][h];
@@ -39,24 +54,17 @@ public class Plateau {
         
         
         // creation de la population initiale
-        Case c;
-        for (int k = 0 ; k < initPopulation; k++){
-            
-            do c = getRandCase();
-            while (!c.estLibre());
-            
-            c.ajouterNeuneu();
-        }
+        this.population = new ArrayList<Neuneu>();
+        for (int k = 0 ; k < initPopulation; k++)
+            inclureNeuneu();
         
         // creation des denrees initiales
-        Nourriture n;
-        for (int k = 0; k < initNourriture; k++) {
-            c = getRandCase();
-            c.ajouterNourriture();
-        }
+        this.nbDenrees = initNourriture;
+        for (int k = 0; k < initNourriture; k++)
+            getRandCase().ajouterNourriture();
         
         if (Config.DEBUG_MODE) this.afficherPlateau(0);
-
+        
     }
     
     
@@ -78,7 +86,20 @@ public class Plateau {
     }
     
     
-    public void joueurTour() {
+    public void jouerTour() {
+        
+        // inclure Neuneus si population trop basse
+        while (population.size() <= Config.POP_LOW_LIMIT ||
+                population.size() <= Config.POP_LOW_LIMIT_RATIO*initPopulation)
+            inclureNeuneu();
+        
+        // inclure Nourritures si denrees trop rares
+        while (nbDenrees <= Config.FOOD_LOW_LIMIT ||
+                nbDenrees <= Config.FOOD_LOW_LIMIT_RATIO*initNourriture)
+            getRandCase().ajouterNourriture();
+        
+        // faire se deplacer et agir tous les Neuneus (manger, reproduction...)
+        for (Neuneu neu:population) neu.deplacer();
         
     }
     
@@ -88,12 +109,18 @@ public class Plateau {
     }
     
     
-    public void inclureNeuneu() {
+    public final void inclureNeuneu() {
+        
+        Case c;
+        do c = getRandCase();
+        while (!c.estLibre());
+        
+        this.population.add(c.ajouterNeuneu());
         
     }
     
     
-    public void inclurePetitNeuneu(Case ccase) {
+    public void inclurePetitNeuneu(Case _case) {
         
     }
     
@@ -108,7 +135,7 @@ public class Plateau {
      * 
      * @return Une Case choisie aleatoirement.
      */
-    private Case getRandCase() {
+    public final Case getRandCase() {
         return cases[(int) (Math.random()*w)][(int) (Math.random()*h)];
     }
     
@@ -118,13 +145,14 @@ public class Plateau {
      * 
      * @param mode Mode d'affichage.
      */
-    public void afficherPlateau(int mode) {
+    private void afficherPlateau(int mode) {
         
         String space = "";
         switch(mode) {
             case 0: space = "  ";   break;
             case 1: space = " ";    break;
             case 2: space = " ";    break;
+            default: space = " ";
         }
         
         // dessiner la premiere ligne avec les coordonnees en abscisses

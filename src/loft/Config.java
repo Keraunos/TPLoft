@@ -14,7 +14,16 @@ public class Config {
     protected static final int BOARD_WIDTH = 6;
     protected static final int BOARD_HEIGHT = 6;
     
-    // ratio de remplissage du plateau (par rapport au nombre total de cases)
+    // ratio de remplissage initial du plateau (par rapport au nombre total de cases)
     protected static final float POPULATION_RATIO = 0.1f;
     protected static final float FOOD_RATIO = 0.2f;
+    
+    // limites basses : declenchent les inclusions de nouveaux Neuneus et Nourritures
+    // limites relatives aux quantites initiales
+    protected static final int POP_LOW_LIMIT_RATIO = 2;
+    protected static final int FOOD_LOW_LIMIT_RATIO = 4; 
+    // limites absolues
+    protected static final int POP_LOW_LIMIT = 2;
+    protected static final int FOOD_LOW_LIMIT = 3;
+    
 }
