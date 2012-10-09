@@ -69,6 +69,7 @@ public class LoftException extends Exception {
      */
     public enum FailureType {
         NEUNEU_NOT_ON_SQUARE,
+        NEUNEU_IS_DEAD,
         SEARCH_OUT_OF_BOUNDS,
     }
     

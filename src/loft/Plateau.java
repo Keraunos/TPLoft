@@ -122,8 +122,21 @@ public class Plateau {
             try {
                 neu.deplacer();
             } catch (LoftException e) {
-                System.out.println("Erreur de type " + e.getType() + " dans le contexte " + e.getContext());
-                // TODO switch sur e.getType() et e.getContext() pour gerer les erreurs elegamment
+                
+                String msg = "";
+                
+                switch (e.getType()) {
+                    case NEUNEU_IS_DEAD:
+                        msg += "Le neuneu " + neu.toString() + " est mort";
+                        switch (e.getContext()) {
+                            case MOVING_NEUNEU: msg += " d'epuisement en se deplacant";
+                            default: msg += ".";
+                        }
+                        break;
+                    default: msg += "Erreur de type " + e.getType() + " dans le contexte " + e.getContext();
+                }
+                
+                System.out.println(msg);
             }
         }
         
@@ -159,8 +172,13 @@ public class Plateau {
     }
     
     
+    /**
+     * Fait naitre un nouveau Neuneu sur la Case specifiee.
+     * 
+     * @param _case Case ou doit apparaitre le nouveau Neuneu.
+     */
     public void inclurePetitNeuneu(Case _case) {
-        // TODO code
+        this.population.add(_case.ajouterNeuneu());
     }
     
     
@@ -214,13 +232,13 @@ public class Plateau {
             System.out.println("");
         }
         
-        System.out.println("\nAppuyer sur la touche ENTER pour continuer...");
-        Reader r = new InputStreamReader(System.in);
-        try {
-            r.read();
-        } catch (IOException e) {}
-
-        
+        if (Config.WAIT_FOR_USER) {
+            System.out.println("\nAppuyer sur la touche ENTER pour continuer...");
+            Reader r = new InputStreamReader(System.in);
+            try {
+                r.read();
+            } catch (IOException e) {}
+        }
     }
     
 }

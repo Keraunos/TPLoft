@@ -17,6 +17,8 @@ public abstract class Neuneu extends Comestible {
     protected int fatigueDeplacement;
     protected int fatigueCoit;
     protected Plateau plateau;
+    // TODO rajouter la gestion des besoins reproductifs pour tous les Neuneus
+    // TODO rajouter une fatigue liee au temps qui passe, meme sans action
     
     
     public int getEnergie() {
@@ -39,6 +41,11 @@ public abstract class Neuneu extends Comestible {
     }
     
     
+    /**
+     * Deplace le Neuneu avec un comportement par defaut : erratique.
+     * 
+     * @throws LoftException 
+     */
     protected void deplacerHasard() throws LoftException {
         
         int dX, dY;
@@ -85,7 +92,12 @@ public abstract class Neuneu extends Comestible {
         _case = destination;
         destination.ajouterNeuneu(this);
         energie -= fatigueDeplacement;
-        if (energie <= 0) exclure();
+        if (energie <= 0) {
+            exclure();
+            throw new loft.exception.LoftException(
+                    LoftException.FailureContext.MOVING_NEUNEU,
+                    LoftException.FailureType.NEUNEU_IS_DEAD);
+        }
     }
     
     
@@ -107,15 +119,25 @@ public abstract class Neuneu extends Comestible {
     }
     
     
-    public Neuneu accoupler(Neuneu neu) {
-        // TODO code
-        return Neuneu.genererNeuneu(_case);
+    /**
+     * Donne naissance a un nouveau Neuneu sur la Case ou a lieu la reproduction.
+     * 
+     * @param neu Le Neuneu partenaire dans l'acte de reproduction.
+     */
+    public void accoupler(Neuneu neu) {
+        plateau.inclurePetitNeuneu(_case);
+        // TODO: gerer les besoins reproductifs des Neuneus autres que Lapins
     }
-
+    
+    
+    /**
+     * 
+     */
     public void manger() {
         // TODO code
     }
-
+    
+    
     /**
      * Genere un Neuneu dont le type est determine aleatoirement : Lapin, Erratique,
      * Vorace ou Cannibale.
@@ -134,6 +156,7 @@ public abstract class Neuneu extends Comestible {
             default: return new Erratique(_case);
         }
     }
+    
     
     /**
      * Retourne la distance entre ce Neuneu et le Neuneu specifie.

@@ -9,6 +9,7 @@ public class Config {
     
     // mode de deboggage
     protected static final boolean DEBUG_MODE = true;
+    protected static final boolean WAIT_FOR_USER = true;
     
     // dimensions du plateau de jeu
     protected static final int BOARD_WIDTH = 8;

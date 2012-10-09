@@ -16,11 +16,14 @@ public class Cannibale extends Vorace {
      * Constructeur
      */
     public Cannibale(Case _case) {
+        
         super(_case);
+        
         this.valeurEnerg = 45;
         this.energie = 100;
         this.fatigueCoit = 24;
         this.valeurGustative = 50;
+        
     }
     
     

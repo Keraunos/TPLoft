@@ -24,7 +24,7 @@ public class Main {
         // TODO lancer partie
         
         for (int i = 0; i < 100; i++) {
-            //plateau.jouerTour();
+            plateau.jouerTour();
         }
         
         // TODO lancer partie

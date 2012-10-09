@@ -17,14 +17,18 @@ public class Lapin extends Neuneu {
      * Constructeur
      */
     public Lapin(Case _case) {
+        
         this.plateau = Plateau.getInstance();
         this._case = _case;
+        
+        
         this.valeurEnerg = 40;
         this.energie = 100;
         this.fatigueDeplacement = 3;
         this.fatigueCoit = 20;
         this.valeurGustative = 60;
         this.dernierRapport = Lapin.intervalleRapports;
+        
     }
     
     
@@ -50,6 +54,9 @@ public class Lapin extends Neuneu {
             distMin = Math.max(Config.BOARD_WIDTH, Config.BOARD_HEIGHT) + 1;
         
         for (Neuneu neu:plateau.getPopulation()) {
+            
+            // pas de reproduction avec les exclus
+            if (neu.estExclu()) continue;
             
             // distance du Neuneu courant
             distance = getDistance(neu);
@@ -82,7 +89,10 @@ public class Lapin extends Neuneu {
         int dY = (int) Math.signum((float) (neuProche.getY()-getY()));
         Case destination = plateau.getCase(getX()+dX, getY()+dY);
         allerA(destination);
-        if (destination.equals(neuProche._case)) accoupler(neuProche);
+        if (destination.equals(neuProche._case)) {
+            accoupler(neuProche);
+            dernierRapport = 0;
+        }
         
         manger();
     }
