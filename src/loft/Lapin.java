@@ -38,6 +38,8 @@ public class Lapin extends Neuneu {
      * On considere que les deplacements en diagonale ne sont pas plus couteux en
      * energie que les deplacements en ligne droite, donc toutes les Cases
      * adjacentes a une Case donnee sont a egale distance de cette derniere.
+     * 
+     * @throws LoftException 
      */
     @Override
     public void deplacer() throws LoftException {

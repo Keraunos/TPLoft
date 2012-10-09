@@ -149,6 +149,7 @@ public class Plateau {
      * Exclut du Plateau le Neuneu specifie.
      * 
      * @param Neuneu Le Neuneu a exclure.
+     * @throws LoftException 
      */
     public void exclure(Neuneu neu) throws LoftException {
         population.remove(neu);

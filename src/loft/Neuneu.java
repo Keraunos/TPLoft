@@ -35,6 +35,7 @@ public abstract class Neuneu extends Comestible {
     
     /**
      * Deplace le Neuneu dans une direction aleatoire.
+     * @throws LoftException 
      */
     public void deplacer() throws LoftException {
         deplacerHasard();
@@ -86,6 +87,7 @@ public abstract class Neuneu extends Comestible {
     /**
      * Deplace effectivement le Neuneu vers la Case specifiee
      * @param destination Case sur laquelle deplacer le Neuneu
+     * @throws LoftException 
      */
     public void allerA(Case destination) throws LoftException {
         _case.enleverNeuneu(this);
@@ -103,6 +105,7 @@ public abstract class Neuneu extends Comestible {
     
     /**
      * Ajoute le Neuneu a la liste des Neuneus a exclure a la fin du tour de jeu.
+     * @throws LoftException 
      */
     public void exclure() throws LoftException {
         plateau.exclure(this);
