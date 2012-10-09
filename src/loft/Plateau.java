@@ -121,19 +121,9 @@ public class Plateau {
             
             try {
                 neu.deplacer();
-                neu.manger(); // ???
             } catch (LoftException e) {
-                
-                switch (e.getContext()) {
-                    case MOVING_NEUNEU:
-                        if (e.getType() == LoftException.FailureType.NEUNEU_NOT_ON_SQUARE)
-                            System.out.println("Le Neuneu " + neu.toString() +
-                                    " ne fait pas partie des occupants de la Case " + neu._case.toString());
-                        break;
-                    case EATING_NEUNEU: break;
-                    case FEEDING_NEUNEU: break;
-                        // TODO gerer les autres types et contextes
-                }
+                System.out.println("Erreur de type " + e.getType() + " dans le contexte " + e.getContext());
+                // TODO switch sur e.getType() et e.getContext() pour gerer les erreurs elegamment
             }
         }
         

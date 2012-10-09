@@ -35,6 +35,11 @@ public abstract class Neuneu extends Comestible {
      * Deplace le Neuneu dans une direction aleatoire.
      */
     public void deplacer() throws LoftException {
+        deplacerHasard();
+    }
+    
+    
+    protected void deplacerHasard() throws LoftException {
         
         int dX, dY;
         ArrayList<Case> casesAdjacentes = new ArrayList<Case>();
@@ -63,12 +68,21 @@ public abstract class Neuneu extends Comestible {
             else destination = c;
         } while (casesAdjacentes.size() > 0 && destination == null);
         
-        // si aucune case libre pour se deplacer, alors rester sur place
-        if (destination == null) return;
+        // se deplacer effectivement si une case libre a ete trouvee
+        if (destination != null) allerA(destination);
+        // TODO: si destination==null, choisir la case avec le moins de Neuneus, s'y deplacer et se reproduire
         
-        // sinon, se deplacer effectivement
-        this._case.enleverNeuneu(this);
-        this._case = destination;
+        manger();
+    }
+    
+    
+    /**
+     * Deplace effectivement le Neuneu vers la Case specifiee
+     * @param destination Case sur laquelle deplacer le Neuneu
+     */
+    public void allerA(Case destination) throws LoftException {
+        _case.enleverNeuneu(this);
+        _case = destination;
         destination.ajouterNeuneu(this);
         energie -= fatigueDeplacement;
         if (energie <= 0) exclure();
@@ -76,7 +90,7 @@ public abstract class Neuneu extends Comestible {
     
     
     /**
-     * Ajouter le Neuneu a la liste des Neuneus a exclure a la fin du tour de jeu.
+     * Ajoute le Neuneu a la liste des Neuneus a exclure a la fin du tour de jeu.
      */
     public void exclure() throws LoftException {
         plateau.exclure(this);
@@ -95,7 +109,7 @@ public abstract class Neuneu extends Comestible {
     
     public Neuneu accoupler(Neuneu neu) {
         // TODO code
-        return neu;
+        return Neuneu.genererNeuneu(_case);
     }
 
     public void manger() {
@@ -119,6 +133,39 @@ public abstract class Neuneu extends Comestible {
             case 4: return new Cannibale(_case);
             default: return new Erratique(_case);
         }
+    }
+    
+    /**
+     * Retourne la distance entre ce Neuneu et le Neuneu specifie.
+     * On considere que toutes les Cases adjacentes a une Case donnee sont a
+     * egale distance de cette derniere. Donc les distances en diagonale sont
+     * egales aux distances en ligne droite.
+     * 
+     * @param neu Le Neuneu dont il faut evaluer la distance
+     * @return 
+     */
+    public int getDistance(Neuneu neu) {
+        int dX = neu.getX() - getX();
+        int dY = neu.getY() - getY();
+        return Math.max(Math.abs(dX), Math.abs(dY)); 
+    }
+    
+    
+    /**
+     * Fonction de DEBUG. Affiche l'etat du Neuneu
+     * 
+     * @param mode Mode d'affichage.
+     */
+    public String afficherNeuneu(int mode) {
+        String str = "";
+        
+        if      (this instanceof Lapin)     str = "L";
+        else if (this instanceof Erratique) str = "E";
+        else if (this instanceof Cannibale) str = "C";
+        else if (this instanceof Vorace)    str = "V";
+        else                                str = "N";
+        
+        return str;
     }
 
 }
