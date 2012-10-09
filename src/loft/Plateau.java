@@ -1,5 +1,6 @@
 package loft;
 
+import java.io.*;
 import java.util.ArrayList;
 import loft.exception.LoftException;
 
@@ -25,7 +26,9 @@ public class Plateau {
     // tableaux de cases et de population
     private Case[][] cases; // Case[width][height]
     private ArrayList<Neuneu> population;
+    
     private int nbDenrees;
+    private ArrayList<Neuneu> exclus;
     
     
     /**
@@ -55,6 +58,7 @@ public class Plateau {
         
         // creation de la population initiale
         this.population = new ArrayList<Neuneu>();
+        this.exclus = new ArrayList<Neuneu>();
         for (int k = 0 ; k < initPopulation; k++)
             inclureNeuneu();
         
@@ -86,6 +90,10 @@ public class Plateau {
     }
     
     
+    /**
+     * Deroule un tour de jeu en faisant evoluer tous les Neuneus et en
+     * reintroduisant des Neuneus ou de la Nourriture s'il en manque.
+     */
     public void jouerTour() {
         
         // inclure Neuneus si population trop basse
@@ -95,8 +103,10 @@ public class Plateau {
         
         // inclure Nourritures si denrees trop rares
         while (nbDenrees <= Config.FOOD_LOW_LIMIT ||
-                nbDenrees <= Config.FOOD_LOW_LIMIT_RATIO*initNourriture)
+                nbDenrees <= Config.FOOD_LOW_LIMIT_RATIO*initNourriture) {
             getRandCase().ajouterNourriture();
+            nbDenrees++;
+        }
         
         // faire se deplacer et agir tous les Neuneus (manger, reproduction...)
         for (Neuneu neu:population) {
@@ -117,20 +127,32 @@ public class Plateau {
                         // TODO gerer les exceptions
                 }
             }
-            
         }
+        
+        // exclure les Neuneus qui doivent l'etre
+        this.exclure();
+        
+        if (Config.DEBUG_MODE) afficherPlateau(0);
         
     }
     
     
     /**
-     * Exclut du loft le Neuneu specifie.
-     * 
-     * @param neu Le Neuneu a exclure.
+     * Ajoute le Neuneu specifie a la liste des Neuneus a exclure a la fin du tour.
      */
-    public void exclure(Neuneu neu) {
-        population.remove(neu);
-        neu._case.getOccupants().remove(neu);
+    public void aExclure(Neuneu neu) {
+        this.exclus.add(neu);
+    }
+    
+    
+    /**
+     * Exclut du loft les Neuneux de la liste des exclus.
+     */
+    public void exclure() {
+        for (Neuneu neu:this.exclus) {
+            population.remove(neu);
+            neu._case.getOccupants().remove(neu);
+        }
     }
     
     
@@ -146,12 +168,12 @@ public class Plateau {
     
     
     public void inclurePetitNeuneu(Case _case) {
-        
+        // TODO code
     }
     
     
     public void inclureNourriture() {
-        
+        // TODO code
     }
     
     
@@ -195,6 +217,14 @@ public class Plateau {
                 System.out.print(cases[i][j].afficherCase(mode));
             System.out.println("");
         }
+        
+        System.out.println("\nAppuyer sur la touche ENTER pour continuer...");
+        Reader r = new InputStreamReader(System.in);
+        try {
+            r.read();
+        } catch (IOException e) {}
+
+        
     }
     
 }

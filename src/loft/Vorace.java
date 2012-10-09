@@ -1,5 +1,7 @@
 package loft;
 
+import loft.exception.LoftException;
+
 /**
  * Classe Vorace.
  * Un Vorace est un Neuneu qui n'ecoute que son ventre.
@@ -14,11 +16,16 @@ public class Vorace extends Neuneu {
      */
     public Vorace(Case _case) {
         this._case = _case;
+        this.valeurEnerg = 42;
+        this.energie = 100;
+        this.fatigueDeplacement = 8;
+        this.fatigueCoit = 25;
+        this.valeurGustative = 55;
     }
     
     
-    @Override
-    public void deplacer() {
-        
-    }
+//    @Override
+//    public void deplacer() throws LoftException {
+//        // TODO code
+//    }
 }

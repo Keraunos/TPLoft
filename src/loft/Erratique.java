@@ -14,5 +14,10 @@ public class Erratique extends Neuneu {
      */
     public Erratique(Case _case) {
         this._case = _case;
+        this.valeurEnerg = 35;
+        this.energie = 100;
+        this.fatigueDeplacement = 10;
+        this.fatigueCoit = 22;
+        this.valeurGustative = 55;
     }
 }

@@ -24,10 +24,6 @@ public abstract class Neuneu extends Comestible {
     }
     
     
-    public void exclure() {
-        
-    }
-    
     /**
      * Deplace le Neuneu dans une direction aleatoire.
      */
@@ -67,9 +63,28 @@ public abstract class Neuneu extends Comestible {
         
         // sinon, se deplacer effectivement
         this._case.enleverNeuneu(this);
+        this._case = destination;
         destination.ajouterNeuneu(this);
         energie -= fatigueDeplacement;
-        if (energie <= 0) plateau.exclure(this);
+        if (energie <= 0) exclure();
+    }
+    
+    
+    /**
+     * Ajouter le Neuneu a la liste des Neuneus a exclure a la fin du tour de jeu.
+     */
+    public void exclure() {
+        plateau.aExclure(this);
+    }
+    
+    
+    /**
+     * Indique si le Neuneu doit etre exclu a la fin du tour de jeu.
+     * 
+     * @return Vrai si le Neuneu doit etre exclu, faux sinon.
+     */
+    public boolean estExclu() {
+        return (this.energie <= 0);
     }
     
     

@@ -1,5 +1,7 @@
 package loft;
 
+import loft.exception.LoftException;
+
 /**
  * Classe Caniibale.
  * Un Cannibale est un Vorace qui, en plus d'etre un gros mangeur, a l'habitude
@@ -15,11 +17,16 @@ public class Cannibale extends Vorace {
      */
     public Cannibale(Case _case) {
         super(_case);
+        this.valeurEnerg = 45;
+        this.energie = 100;
+        this.fatigueDeplacement = 8;
+        this.fatigueCoit = 24;
+        this.valeurGustative = 50;
     }
     
     
-    @Override
-    public void deplacer() {
-        
-    }
+//    @Override
+//    public void deplacer() throws LoftException {
+//        // TODO code
+//    }
 }
