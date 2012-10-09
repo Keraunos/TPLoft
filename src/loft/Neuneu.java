@@ -23,15 +23,20 @@ public abstract class Neuneu extends Comestible {
         return this.energie;
     }
     
+    public int getX() {
+        return this._case.getX();
+    }
+    
+    public int getY() {
+        return this._case.getY();
+    }
     
     /**
      * Deplace le Neuneu dans une direction aleatoire.
      */
     public void deplacer() throws LoftException {
         
-        plateau = Plateau.getInstance();
-        int x = this._case.getX(), dX,
-            y = this._case.getY(), dY;
+        int dX, dY;
         ArrayList<Case> casesAdjacentes = new ArrayList<Case>();
         Case adjacente;
         
@@ -40,7 +45,7 @@ public abstract class Neuneu extends Comestible {
         for (dY = -1; dY < 2; dY++) {
             if (dX != 0 || dY != 0) {
                 try {
-                    adjacente = plateau.getCase(x + dX, y + dY);
+                    adjacente = plateau.getCase(getX() + dX, getY() + dY);
                     casesAdjacentes.add(adjacente);
                 } catch (LoftException e) {
                     // ignore exception gracefully
@@ -73,8 +78,8 @@ public abstract class Neuneu extends Comestible {
     /**
      * Ajouter le Neuneu a la liste des Neuneus a exclure a la fin du tour de jeu.
      */
-    public void exclure() {
-        plateau.aExclure(this);
+    public void exclure() throws LoftException {
+        plateau.exclure(this);
     }
     
     

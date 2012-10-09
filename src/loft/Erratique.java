@@ -13,6 +13,7 @@ public class Erratique extends Neuneu {
      * Constructeur
      */
     public Erratique(Case _case) {
+        this.plateau = Plateau.getInstance();
         this._case = _case;
         this.valeurEnerg = 35;
         this.energie = 100;

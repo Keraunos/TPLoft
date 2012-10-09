@@ -15,6 +15,7 @@ public class Lapin extends Neuneu {
      * Constructeur
      */
     public Lapin(Case _case) {
+        this.plateau = Plateau.getInstance();
         this._case = _case;
         this.valeurEnerg = 40;
         this.energie = 100;
@@ -24,9 +25,12 @@ public class Lapin extends Neuneu {
     }
     
     
-//    @Override
-//    public void deplacer() throws LoftException {
-//        // TODO code
-//    }
+    @Override
+    public void deplacer() throws LoftException {
+        
+        // chercher les Neuneus les plus proches
+        
+        
+    }
     
 }

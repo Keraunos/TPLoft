@@ -15,6 +15,7 @@ public class Vorace extends Neuneu {
      * Constructeur
      */
     public Vorace(Case _case) {
+        this.plateau = Plateau.getInstance();
         this._case = _case;
         this.valeurEnerg = 42;
         this.energie = 100;

@@ -26,9 +26,8 @@ public class Plateau {
     // tableaux de cases et de population
     private Case[][] cases; // Case[width][height]
     private ArrayList<Neuneu> population;
-    
     private int nbDenrees;
-    private ArrayList<Neuneu> exclus;
+    
     
     
     /**
@@ -45,20 +44,23 @@ public class Plateau {
      */
     private Plateau() {
         
+        // nombre initial de Neuneus et de Nourritures
+        this.initPopulation = (int) ((float)(w*h)*Config.POPULATION_RATIO);
+        this.initNourriture = (int) ((float)(w*h)*Config.FOOD_RATIO);
+        
+    }
+    
+    
+    public void initPlateau() {
+        
         // construction des Cases vides
         this.cases = new Case[w][h];
         for(int i = 0; i < w; i++ )
             for(int j = 0; j < h; j++)
                 cases[i][j] = new Case(i, j);
         
-        // nombre initial de Neuneus et de Nourritures
-        this.initPopulation = (int) ((float)(w*h)*Config.POPULATION_RATIO);
-        this.initNourriture = (int) ((float)(w*h)*Config.FOOD_RATIO);
-        
-        
         // creation de la population initiale
         this.population = new ArrayList<Neuneu>();
-        this.exclus = new ArrayList<Neuneu>();
         for (int k = 0 ; k < initPopulation; k++)
             inclureNeuneu();
         
@@ -71,6 +73,13 @@ public class Plateau {
         
     }
     
+    /**
+     * Retourne l'ensemble des Neuneus sur le plateau.
+     * @return 
+     */
+    public ArrayList<Neuneu> getPopulation() {
+        return this.population;
+    }
     
     /**
      * Retourne la Case aux coordonnees specifiees.
@@ -103,13 +112,12 @@ public class Plateau {
         
         // inclure Nourritures si denrees trop rares
         while (nbDenrees <= Config.FOOD_LOW_LIMIT ||
-                nbDenrees <= Config.FOOD_LOW_LIMIT_RATIO*initNourriture) {
-            getRandCase().ajouterNourriture();
-            nbDenrees++;
-        }
+                nbDenrees <= Config.FOOD_LOW_LIMIT_RATIO*initNourriture)
+            inclureNourriture();
         
         // faire se deplacer et agir tous les Neuneus (manger, reproduction...)
-        for (Neuneu neu:population) {
+        ArrayList<Neuneu> populationDebutTour = new ArrayList<Neuneu>(population);
+        for (Neuneu neu:populationDebutTour) {
             
             try {
                 neu.deplacer();
@@ -124,13 +132,10 @@ public class Plateau {
                         break;
                     case EATING_NEUNEU: break;
                     case FEEDING_NEUNEU: break;
-                        // TODO gerer les exceptions
+                        // TODO gerer les autres types et contextes
                 }
             }
         }
-        
-        // exclure les Neuneus qui doivent l'etre
-        this.exclure();
         
         if (Config.DEBUG_MODE) afficherPlateau(0);
         
@@ -138,29 +143,26 @@ public class Plateau {
     
     
     /**
-     * Ajoute le Neuneu specifie a la liste des Neuneus a exclure a la fin du tour.
+     * Exclut du Plateau le Neuneu specifie.
+     * 
+     * @param Neuneu Le Neuneu a exclure.
      */
-    public void aExclure(Neuneu neu) {
-        this.exclus.add(neu);
+    public void exclure(Neuneu neu) throws LoftException {
+        population.remove(neu);
+        neu._case.enleverNeuneu(neu);
+        neu._case = null;
     }
     
     
     /**
-     * Exclut du loft les Neuneux de la liste des exclus.
+     * Inclut sur le Plateau un nouveau Neuneu, sur une case libre choisie aleatoirement
      */
-    public void exclure() {
-        for (Neuneu neu:this.exclus) {
-            population.remove(neu);
-            neu._case.getOccupants().remove(neu);
-        }
-    }
-    
-    
     public final void inclureNeuneu() {
         
         Case c;
         do c = getRandCase();
         while (!c.estLibre());
+        // TODO: gerer le cas ou cette boucle peut tourner indefiniment
         
         this.population.add(c.ajouterNeuneu());
         
@@ -172,8 +174,12 @@ public class Plateau {
     }
     
     
+    /**
+     * Inclut une Nourriture sur une case choisie aleatoirement.
+     */
     public void inclureNourriture() {
-        // TODO code
+        getRandCase().ajouterNourriture();
+        nbDenrees++;
     }
     
     
