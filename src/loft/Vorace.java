@@ -15,4 +15,10 @@ public class Vorace extends Neuneu {
     public Vorace(Case _case) {
         this._case = _case;
     }
+    
+    
+    @Override
+    public void deplacer() {
+        
+    }
 }

@@ -16,4 +16,10 @@ public class Lapin extends Neuneu {
         this._case = _case;
     }
     
+    
+    @Override
+    public void deplacer() {
+        
+    }
+    
 }

@@ -57,7 +57,8 @@ public class Case {
     }
     
     /**
-     * Ajout le Neuneu specifie sur cette Case.
+     * Ajoute le Neuneu specifie sur cette Case.
+     * 
      * @param neu Le Neuneu a ajouter sur cette Case.
      */
     public void ajouterNeuneu(Neuneu neu) {

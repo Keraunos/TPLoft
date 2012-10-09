@@ -12,11 +12,11 @@ import loft.exception.LoftException;
 public class Plateau {
     
     // unique instance de Plateau
-    private static Plateau plateau;
+    private static Plateau plateau = null;
     
     // metriques
-    private int w = Config.BOARD_WIDTH;
-    private int h = Config.BOARD_HEIGHT;
+    private static int w = Config.BOARD_WIDTH;
+    private static int h = Config.BOARD_HEIGHT;
     
     // donnes initiales
     private int initPopulation;
@@ -99,13 +99,38 @@ public class Plateau {
             getRandCase().ajouterNourriture();
         
         // faire se deplacer et agir tous les Neuneus (manger, reproduction...)
-        for (Neuneu neu:population) neu.deplacer();
+        for (Neuneu neu:population) {
+            
+            try {
+                neu.deplacer();
+                neu.manger(); // ???
+            } catch (LoftException e) {
+                
+                switch (e.getContext()) {
+                    case MOVING_NEUNEU:
+                        if (e.getType() == LoftException.FailureType.NEUNEU_NOT_ON_SQUARE)
+                            System.out.println("Le Neuneu " + neu.toString() +
+                                    " ne fait pas partie des occupants de la Case " + neu._case.toString());
+                        break;
+                    case EATING_NEUNEU: break;
+                    case FEEDING_NEUNEU: break;
+                        // TODO gerer les exceptions
+                }
+            }
+            
+        }
         
     }
     
     
+    /**
+     * Exclut du loft le Neuneu specifie.
+     * 
+     * @param neu Le Neuneu a exclure.
+     */
     public void exclure(Neuneu neu) {
-        
+        population.remove(neu);
+        neu._case.getOccupants().remove(neu);
     }
     
     
@@ -135,7 +160,7 @@ public class Plateau {
      * 
      * @return Une Case choisie aleatoirement.
      */
-    public final Case getRandCase() {
+    private Case getRandCase() {
         return cases[(int) (Math.random()*w)][(int) (Math.random()*h)];
     }
     

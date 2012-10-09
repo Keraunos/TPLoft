@@ -16,4 +16,10 @@ public class Cannibale extends Vorace {
     public Cannibale(Case _case) {
         super(_case);
     }
+    
+    
+    @Override
+    public void deplacer() {
+        
+    }
 }
