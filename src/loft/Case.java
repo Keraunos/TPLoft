@@ -101,15 +101,19 @@ public class Case {
      */
     public String afficherCase(int mode) {
         
-        int nbNeuneus = this.occupants.size();
-        int nbNourritures = this.denrees.size();
+        int nbNeuneus = occupants.size();
+        int nbNourritures = denrees.size();
         
         String contenu = "";
         
         switch(mode) {
             // indiquer presence de Neuneus et nb de denrees s'il y en a
             case 0:
-                contenu += (nbNeuneus > 0) ? "N" : " ";
+                //contenu += (nbNeuneus > 0) ? occupants.get(0).afficherNeuneu(mode) : " ";
+                if (nbNeuneus > 0)
+                    for (Neuneu neu:occupants)
+                        contenu += neu.afficherNeuneu(0);
+                else contenu += " ";
                 contenu += (nbNourritures > 0) ? nbNourritures : " ";
                 break;
             // indiquer presence de Neuneus uniquement et donner leur nombre
