@@ -10,17 +10,20 @@ import loft.exception.LoftException;
  */
 public class Lapin extends Neuneu {
     
+    protected static int count = 0;
     protected static int intervalleRapports = 5; // nb de tours entre deux rapports
     protected int dernierRapport;
+    
     
     /**
      * Constructeur
      */
     public Lapin(Case _case) {
         
+        this.id = ++Lapin.count;
+        
         this.plateau = Plateau.getInstance();
         this._case = _case;
-        
         
         this.valeurEnerg = 40;
         this.energie = Config.MAX_ENERGY;
@@ -30,7 +33,6 @@ public class Lapin extends Neuneu {
         this.dernierRapport = Lapin.intervalleRapports;
         
     }
-    
     
     
     /**

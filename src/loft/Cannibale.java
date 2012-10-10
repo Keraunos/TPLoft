@@ -11,6 +11,8 @@ import loft.exception.LoftException;
  */
 public class Cannibale extends Vorace {
     
+    protected static int count = 0;
+    
     
     /**
      * Constructeur
@@ -18,6 +20,9 @@ public class Cannibale extends Vorace {
     public Cannibale(Case _case) {
         
         super(_case);
+        
+        --Vorace.count;
+        this.id = ++Cannibale.count;
         
         this.valeurEnerg = 45;
         this.fatigueCoit = 24;

@@ -17,17 +17,11 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-
+        
+        // lancer la partie
         Plateau plateau = Plateau.getInstance();
         plateau.initPlateau();
-        
-        // TODO lancer partie
-        
-        for (int i = 0; i < Config.NB_TURNS; i++) {
-            plateau.jouerTour();
-        }
-        
-        // TODO lancer partie
+        for (int i = 0; i < Config.NB_TURNS; i++) plateau.jouerTour();
         
     }
     

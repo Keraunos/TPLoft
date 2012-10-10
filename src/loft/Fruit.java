@@ -8,7 +8,11 @@ package loft;
  */
 public class Fruit extends Nourriture {
     
+    protected static int count = 0;
+    
+    
     public Fruit() {
+        this.id = ++Fruit.count;
         this.valeurGustative = 70;
         this.valeurEnerg = 25;
     }

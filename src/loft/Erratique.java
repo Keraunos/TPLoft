@@ -8,11 +8,15 @@ package loft;
  */
 public class Erratique extends Neuneu {
     
+    protected static int count = 0;
+    
     
     /**
      * Constructeur
      */
     public Erratique(Case _case) {
+        
+        this.id = ++Erratique.count;
         
         this.plateau = Plateau.getInstance();
         this._case = _case;

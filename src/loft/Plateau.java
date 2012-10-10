@@ -218,7 +218,6 @@ public class Plateau {
         switch(mode) {
             case 0:
                 for (int k=0; k<Config.NB_DISP_ELTS_IN_SQUARE; k++) space += "  ";
-                space += " ";
                 break;
             case 1: space = " ";    break;
             case 2: space = " ";    break;

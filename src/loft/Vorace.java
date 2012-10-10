@@ -10,11 +10,15 @@ import loft.exception.LoftException;
  */
 public class Vorace extends Neuneu {
     
+    protected static int count = 0;
+    
     
     /**
      * Constructeur
      */
     public Vorace(Case _case) {
+        
+        this.id = ++Vorace.count;
         
         this.plateau = Plateau.getInstance();
         this._case = _case;
