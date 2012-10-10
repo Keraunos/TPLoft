@@ -8,4 +8,9 @@ package loft;
  */
 public class Fruit extends Nourriture {
     
+    public Fruit() {
+        this.valeurGustative = 70;
+        this.valeurEnerg = 25;
+    }
+    
 }

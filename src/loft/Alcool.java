@@ -10,7 +10,8 @@ public class Alcool extends Nourriture {
     
     
     public Alcool() {
-        
+        this.valeurGustative = 90;
+        this.valeurEnerg = 15;
     }
     
 }

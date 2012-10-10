@@ -6,26 +6,28 @@ package loft;
  * 
  * @author Marlene, Gaetan
  */
-public class Nourriture extends Comestible{
+public abstract class Nourriture extends Comestible{
     
     
-    public Nourriture() {
-        
-    }
-    
-    public void setValeurEnerg(){
-        
+    public void setValeurEnerg(int valEnerg) {
+        this.valeurEnerg = valEnerg;
     }
     
     
+    /**
+     * Genere une Nourriture dont la classe est determinee aleatoirement.
+     * 
+     * @return Nourriture
+     */
     public static Nourriture genererNourriture() {
         
-        int choix = (int) Math.floor(Math.random()*2);
+        int choix = (int) Math.floor(Math.random()*3);
         
         switch(choix) {
-            case 0: return new Nourriture();
-            case 1: return new Alcool();
-            default: return new Nourriture();
+            case 0: return new Fruit();
+            case 1: return new Viande();
+            case 2: return new Alcool();
+            default: return new Fruit();
         }
         
     }

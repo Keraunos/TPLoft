@@ -66,6 +66,7 @@ public class Case {
         this.occupants.add(neu);
     }
     
+    
     /**
      * Enleve le Neuneu specifie de cette Case.
      * /!\ Si le Neuneu se deplace, veiller a l'ajouter a une Case adjacente /!\
@@ -84,6 +85,7 @@ public class Case {
                 LoftException.FailureType.NEUNEU_NOT_ON_SQUARE);
     }
     
+    
     /**
      * Teste si cette Case est vide (aucun Neuneu).
      * 
@@ -91,6 +93,26 @@ public class Case {
      */
     public boolean estLibre() {
         return occupants.isEmpty();
+    }
+    
+    
+    /**
+     * Retourne la Nourriture la plus attractive sur cette Case
+     * 
+     * @return La Nourriture avec la plus grande valeurGustative trouvee (premiere trouvee)
+     */
+    public Nourriture getMeilleureDenree() {
+        
+        int maxValeurGustative = 0;
+        Nourriture meilleureNourriture = null;
+        for (Nourriture nourr:denrees) {
+            if (nourr.valeurGustative > maxValeurGustative) {
+                maxValeurGustative = nourr.valeurGustative;
+                meilleureNourriture = nourr;
+            }
+        }
+        
+        return meilleureNourriture;
     }
     
     

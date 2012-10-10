@@ -78,7 +78,7 @@ public abstract class Neuneu extends Comestible {
         
         // se deplacer effectivement si une case libre a ete trouvee
         if (destination != null) allerA(destination);
-        // TODO: si destination==null, choisir la case avec le moins de Neuneus, s'y deplacer et se reproduire
+        // TODO: si destination==null, chercher a se deplacer pour se nourrir ou se reproduire
         
         manger();
     }
@@ -134,10 +134,28 @@ public abstract class Neuneu extends Comestible {
     
     
     /**
+     * Mange les Nourritures disponibles sur la Case en vue d'atteindre le max d'energie
      * 
+     * @throws LoftException 
      */
-    public void manger() {
-        // TODO code
+    public void manger() throws LoftException {
+        
+        if (energie >= Config.MAX_ENERGY) return;
+        
+        // se nourrir avec les Nourritures presentes sur la Case
+        Nourriture repas = null;
+        while (energie < Config.MAX_ENERGY) {
+            
+            repas = _case.getMeilleureDenree();
+            if (repas == null) return;
+            
+            // consommer en entier, sans depasser le max d'energie
+            energie += repas.getValeurEnerg();
+            if (energie > Config.MAX_ENERGY) energie = Config.MAX_ENERGY;
+            plateau.supprimerNourriture(repas, _case);
+            
+            if (Config.DEBUG_MODE) System.out.println(this.toString() + " a mange " + repas.toString() + " sur la case [" + getX() + "][" + getY() + "].");
+        }
     }
     
     

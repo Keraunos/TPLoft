@@ -20,7 +20,6 @@ public class Cannibale extends Vorace {
         super(_case);
         
         this.valeurEnerg = 45;
-        this.energie = 100;
         this.fatigueCoit = 24;
         this.valeurGustative = 50;
         

@@ -122,21 +122,7 @@ public class Plateau {
             try {
                 neu.deplacer();
             } catch (LoftException e) {
-                
-                String msg = "";
-                
-                switch (e.getType()) {
-                    case NEUNEU_IS_DEAD:
-                        msg += "Le neuneu " + neu.toString() + " est mort";
-                        switch (e.getContext()) {
-                            case MOVING_NEUNEU: msg += " d'epuisement en se deplacant";
-                            default: msg += ".";
-                        }
-                        break;
-                    default: msg += "Erreur de type " + e.getType() + " dans le contexte " + e.getContext();
-                }
-                
-                System.out.println(msg);
+                e.displayErrorMsg(neu);
             }
         }
         
@@ -189,6 +175,25 @@ public class Plateau {
     public void inclureNourriture() {
         getRandCase().ajouterNourriture();
         nbDenrees++;
+    }
+    
+    
+    /**
+     * Supprimme du jeu la Nourriture specifiee
+     * 
+     * @param nourr Nourriture a supprimer
+     * @param _case Case sur laquelle se trouve la Nourriture specifiee
+     */
+    public void supprimerNourriture(Nourriture nourr, Case _case) throws LoftException {
+        
+        if (!_case.getDenrees().remove(nourr))
+            throw new LoftException(
+                    LoftException.FailureContext.REMOVING_FOOD,
+                    LoftException.FailureType.FOOD_NOT_ON_SQUARE,
+                    nourr);
+        
+        nbDenrees--;
+        
     }
     
     

@@ -23,12 +23,12 @@ public class Main {
         
         // TODO lancer partie
         
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < Config.NB_TURNS; i++) {
             plateau.jouerTour();
         }
         
         // TODO lancer partie
         
     }
-
+    
 }

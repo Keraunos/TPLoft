@@ -18,8 +18,8 @@ public class Erratique extends Neuneu {
         this._case = _case;
         
         this.valeurEnerg = 35;
-        this.energie = 100;
-        this.fatigueDeplacement = 3;
+        this.energie = Config.MAX_ENERGY;
+        this.fatigueDeplacement = 8;
         this.fatigueCoit = 22;
         this.valeurGustative = 55;
         

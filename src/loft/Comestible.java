@@ -10,7 +10,7 @@ public abstract class Comestible {
     
     protected Case _case;
     protected int valeurEnerg;
-    protected static int initValeurEnerg;
+    //protected static int initValeurEnerg;
     protected int valeurGustative;
     
     

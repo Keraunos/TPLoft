@@ -20,8 +20,8 @@ public class Vorace extends Neuneu {
         this._case = _case;
         
         this.valeurEnerg = 42;
-        this.energie = 100;
-        this.fatigueDeplacement = 2;
+        this.energie = Config.MAX_ENERGY;
+        this.fatigueDeplacement = 10;
         this.fatigueCoit = 25;
         this.valeurGustative = 55;
         

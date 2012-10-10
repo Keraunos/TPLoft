@@ -1,5 +1,6 @@
 package loft.exception;
 
+import loft.Neuneu;
 
 /**
  * Classe LoftException. Gere les erreurs survenant lors du jeu.
@@ -11,13 +12,19 @@ public class LoftException extends Exception {
     
     private FailureContext context;
     private FailureType type;
-
+    private Object o;
+    
     
     public LoftException(FailureContext context, FailureType type) {
         this.context = context;
         this.type = type;
     }
     
+    public LoftException(FailureContext context, FailureType type, Object o) {
+        this.context = context;
+        this.type = type;
+        this.o = o;
+    }
     
     public FailureContext getContext() {
         return context;
@@ -25,6 +32,10 @@ public class LoftException extends Exception {
     
     public FailureType getType() {
         return type;
+    }
+    
+    public Object getObject() {
+        return o;
     }
     
     
@@ -36,6 +47,31 @@ public class LoftException extends Exception {
         this.type = type;
     }
     
+    
+    public void displayErrorMsg(Neuneu neu) {
+        
+        String msg = "";
+
+        switch (getType()) {
+            
+            case NEUNEU_IS_DEAD:
+                msg += "Le neuneu " + neu.toString() + " est mort";
+                switch (getContext()) {
+                    case MOVING_NEUNEU: msg += " d'epuisement en se deplacant";
+                    default: msg += ".";
+                }
+                break;
+                
+            case FOOD_NOT_ON_SQUARE:
+                msg += "La Nourriture " + getObject().toString() +
+                        " ne se trouve pas sur la case [" + neu.getX() + "][" + neu.getY() + "].";
+                break;
+                
+            default: msg += "Erreur de type " + getType() + " dans le contexte " + getContext();
+        }
+
+        System.out.println(msg);
+    }
     
     /**
      * Classe interne FailureContext. Designe l'action ayant echoue.
@@ -62,6 +98,7 @@ public class LoftException extends Exception {
         // Nourriture
         EATING_FOOD,
         PLACING_FOOD,
+        REMOVING_FOOD,
     }
     
     /**
@@ -71,6 +108,7 @@ public class LoftException extends Exception {
         NEUNEU_NOT_ON_SQUARE,
         NEUNEU_IS_DEAD,
         SEARCH_OUT_OF_BOUNDS,
+        FOOD_NOT_ON_SQUARE,
     }
     
 }
