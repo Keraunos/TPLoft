@@ -32,4 +32,21 @@ public abstract class Nourriture extends Comestible{
         
     }
     
+    
+    /**
+     * Fonction de DEBUG. Affiche l'etat du Neuneu
+     * 
+     * @param mode Mode d'affichage.
+     */
+    public String afficherNourriture(int mode) {
+        String str = "";
+        
+        if      (this instanceof Fruit)     str = "f";
+        else if (this instanceof Viande)    str = "v";
+        else if (this instanceof Alcool)    str = "a";
+        else                                str = "?";
+        
+        return str;
+    }
+    
 }

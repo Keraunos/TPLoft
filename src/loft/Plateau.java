@@ -216,7 +216,10 @@ public class Plateau {
         
         String space = "";
         switch(mode) {
-            case 0: space = "  ";   break;
+            case 0:
+                for (int k=0; k<Config.NB_DISP_ELTS_IN_SQUARE; k++) space += "  ";
+                space += " ";
+                break;
             case 1: space = " ";    break;
             case 2: space = " ";    break;
             default: space = " ";
@@ -238,6 +241,7 @@ public class Plateau {
             System.out.println("");
         }
         
+        // laisser l'utilisateur passer au tour suivant
         if (Config.WAIT_FOR_USER) {
             System.out.println("\nAppuyer sur la touche ENTER pour continuer...");
             Reader r = new InputStreamReader(System.in);

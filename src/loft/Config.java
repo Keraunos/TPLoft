@@ -10,9 +10,10 @@ public class Config {
     // mode de deboggage
     protected static final boolean DEBUG_MODE = true;
     protected static final boolean WAIT_FOR_USER = true;
+    protected static final int NB_DISP_ELTS_IN_SQUARE = 2;
     
     // deroulement d'une partie
-    protected static final int NB_TURNS = 100;
+    protected static final int NB_TURNS = 1000;
     
     // dimensions du plateau de jeu
     protected static final int BOARD_WIDTH = 5;
@@ -28,7 +29,7 @@ public class Config {
     protected static final float FOOD_LOW_LIMIT_RATIO = 0;//0.5f; 
     // limites absolues
     protected static final int POP_LOW_LIMIT = 0;//2;
-    protected static final int FOOD_LOW_LIMIT = 0;//3;
+    protected static final int FOOD_LOW_LIMIT = 5;//3;
     
     // energie max et initiale des Neuneus
     protected static final int MAX_ENERGY = 100;

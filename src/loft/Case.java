@@ -126,26 +126,44 @@ public class Case {
         int nbNeuneus = occupants.size();
         int nbNourritures = denrees.size();
         
-        String contenu = "";
+        String contenu = "", contenuNeu = "", contenuNou = "";
         
         switch(mode) {
-            // indiquer presence de Neuneus et nb de denrees s'il y en a
+            
+            // afficher un nb max de Neuneus et de Nourritures s'il y en a
             case 0:
-                //contenu += (nbNeuneus > 0) ? occupants.get(0).afficherNeuneu(mode) : " ";
-                if (nbNeuneus > 0)
-                    for (Neuneu neu:occupants)
-                        contenu += neu.afficherNeuneu(0);
-                else contenu += " ";
-                contenu += (nbNourritures > 0) ? nbNourritures : " ";
+                int k, nbElts = Config.NB_DISP_ELTS_IN_SQUARE;
+                for (k = 1; k <= nbElts; k++) {
+                    
+                    if (k > nbNeuneus) contenuNeu += " ";
+                    else {
+                        if ((k == nbElts) && (nbNeuneus > nbElts))
+                            contenuNeu += (nbNeuneus - nbElts + 1);
+                        else
+                            contenuNeu += occupants.get(k-1).afficherNeuneu(0);
+                    }
+                    
+                    if (k > nbNourritures) contenuNou += " ";
+                    else {
+                        if ((k == nbElts) && (nbNourritures > nbElts))
+                            contenuNou += (nbNourritures - nbElts + 1);
+                        else
+                            contenuNou += denrees.get(k-1).afficherNourriture(0);
+                    }
+                }
+                contenu += contenuNeu + contenuNou;
                 break;
+                
             // indiquer presence de Neuneus uniquement et donner leur nombre
             case 1:
                 contenu += (nbNeuneus > 0) ? nbNeuneus : " ";
                 break;
+                
             // indiquer presence de Nourritures uniquement et donneur leur nombre
             case 2:
                 contenu += (nbNourritures > 0) ? nbNourritures : " ";
                 break;
+            
             default:
                 contenu += "X";
         }
