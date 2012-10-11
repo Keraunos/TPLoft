@@ -1,5 +1,7 @@
 package loft;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.*;
 import java.util.ArrayList;
 import loft.exception.LoftException;
@@ -10,7 +12,7 @@ import loft.exception.LoftException;
  * 
  * @author Marlene, Gaetan
  */
-public class Plateau {
+public class Plateau extends ObjetGraphique {
     
     // unique instance de Plateau
     private static Plateau plateau = null;
@@ -28,6 +30,8 @@ public class Plateau {
     private ArrayList<Neuneu> population;
     private int nbDenrees;
     
+    // GUI
+    private static Affichage dessin;
     
     
     /**
@@ -48,6 +52,9 @@ public class Plateau {
         this.initPopulation = (int) ((float)(w*h)*Config.POPULATION_RATIO);
         this.initNourriture = (int) ((float)(w*h)*Config.FOOD_RATIO);
         
+        dessin = new Affichage();
+        dessin.ajoutObjet(this);
+        dessin.setVisible(true);
     }
     
     
@@ -67,10 +74,20 @@ public class Plateau {
         // creation des denrees initiales
         this.nbDenrees = initNourriture;
         for (int k = 0; k < initNourriture; k++)
-            getRandCase().ajouterNourriture();
+            inclureNourriture();
         
         if (Config.DEBUG_MODE) this.afficherPlateau(0);
         
+        // ajouter les objets graphiques a tracer
+        
+        for(Neuneu neu:population)
+            dessin.ajoutObjet(neu);
+        for(int i = 0; i < w; i++ )
+            for(int j = 0; j < h; j++)
+                for(Nourriture nourr:cases[i][j].getDenrees())
+                    dessin.ajoutObjet(nourr);
+        
+        dessin.repaint();
     }
     
     /**
@@ -128,6 +145,8 @@ public class Plateau {
         
         if (Config.DEBUG_MODE) afficherPlateau(0);
         
+        dessin.repaint();
+        
     }
     
     
@@ -141,6 +160,8 @@ public class Plateau {
         population.remove(neu);
         neu._case.enleverNeuneu(neu);
         neu._case = null;
+        
+        dessin.suppressionObjet(neu);
     }
     
     
@@ -154,8 +175,10 @@ public class Plateau {
         while (!c.estLibre());
         // TODO: gerer le cas ou cette boucle peut tourner indefiniment
         
-        this.population.add(c.ajouterNeuneu());
+        Neuneu neu = c.ajouterNeuneu();
+        this.population.add(neu);
         
+        dessin.ajoutObjet(neu);
     }
     
     
@@ -165,7 +188,10 @@ public class Plateau {
      * @param _case Case ou doit apparaitre le nouveau Neuneu.
      */
     public void inclurePetitNeuneu(Case _case) {
-        this.population.add(_case.ajouterNeuneu());
+        Neuneu neu = _case.ajouterNeuneu();
+        this.population.add(neu);
+        
+        dessin.ajoutObjet(neu);
     }
     
     
@@ -173,8 +199,10 @@ public class Plateau {
      * Inclut une Nourriture sur une case choisie aleatoirement.
      */
     public void inclureNourriture() {
-        getRandCase().ajouterNourriture();
+        Nourriture nourr = getRandCase().ajouterNourriture();
         nbDenrees++;
+        
+        dessin.ajoutObjet(nourr);
     }
     
     
@@ -191,9 +219,10 @@ public class Plateau {
                     LoftException.FailureContext.REMOVING_FOOD,
                     LoftException.FailureType.FOOD_NOT_ON_SQUARE,
                     nourr);
-        
+        nourr._case = null;
         nbDenrees--;
         
+        dessin.suppressionObjet(nourr);
     }
     
     
@@ -204,6 +233,20 @@ public class Plateau {
      */
     private Case getRandCase() {
         return cases[(int) (Math.random()*w)][(int) (Math.random()*h)];
+    }
+    
+    
+    @Override
+    public void colorerObjet(Graphics g) {
+        g.setColor(Color.WHITE);
+    }
+    
+    
+    @Override
+    public void dessinerObjet(Graphics g) {
+        this.rectangle(g, 0, 0,
+                Config.ZOOM_FACTOR*Config.BOARD_WIDTH,
+                Config.ZOOM_FACTOR*Config.BOARD_HEIGHT);
     }
     
     

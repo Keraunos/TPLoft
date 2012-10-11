@@ -6,7 +6,7 @@ package loft;
  * 
  * @author Marlene, Gaetan
  */
-public abstract class Comestible {
+public abstract class Comestible extends ObjetGraphique {
     
     protected Case _case;
     protected int valeurEnerg;

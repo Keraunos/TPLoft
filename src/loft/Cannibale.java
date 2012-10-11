@@ -1,5 +1,7 @@
 package loft;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import loft.exception.LoftException;
 
 /**
@@ -35,4 +37,11 @@ public class Cannibale extends Vorace {
 //    public void deplacer() throws LoftException {
 //        // TODO code
 //    }
+    
+    
+    @Override
+    public void colorerObjet(Graphics g){
+        g.setColor(Color.GREEN);
+    }
+    
 }

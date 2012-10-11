@@ -1,5 +1,7 @@
 package loft;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import loft.exception.LoftException;
 
 /**
@@ -36,4 +38,11 @@ public class Vorace extends Neuneu {
 //    public void deplacer() throws LoftException {
 //        // TODO code
 //    }
+    
+    
+    @Override
+    public void colorerObjet(Graphics g){
+        g.setColor(Color.BLUE);
+    }
+    
 }

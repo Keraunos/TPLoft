@@ -1,5 +1,8 @@
 package loft;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  * Classe Erratique.
  * Un Erratique est un Neuneu un peu basique, qui erre sans but precis.
@@ -28,4 +31,11 @@ public class Erratique extends Neuneu {
         this.valeurGustative = 55;
         
     }
+    
+    
+    @Override
+    public void colorerObjet(Graphics g){
+        g.setColor(Color.DARK_GRAY);
+    }
+    
 }

@@ -10,14 +10,14 @@ public class Config {
     // mode de deboggage
     protected static final boolean DEBUG_MODE = true;
     protected static final boolean WAIT_FOR_USER = true;
-    protected static final int NB_DISP_ELTS_IN_SQUARE = 2;
+    protected static final int NB_DISP_ELTS_IN_SQUARE = 4;
     
     // deroulement d'une partie
     protected static final int NB_TURNS = 1000;
     
     // dimensions du plateau de jeu
-    protected static final int BOARD_WIDTH = 12;
-    protected static final int BOARD_HEIGHT = 15;
+    protected static final int BOARD_WIDTH = 4;
+    protected static final int BOARD_HEIGHT = 4;
     
     // ratio de remplissage initial du plateau (par rapport au nombre total de cases)
     protected static final float POPULATION_RATIO = 0.1f;
@@ -33,5 +33,13 @@ public class Config {
     
     // energie max et initiale des Neuneus
     protected static final int MAX_ENERGY = 100;
+    
+    
+    // GUI
+    protected static final int TOP_MARGIN = 22+20;
+    protected static final int LEFT_MARGIN = 20;
+    protected static final int ZOOM_FACTOR = 20;
+    protected static final int NEUNEU_SIZE = 12;
+    protected static final int FOOD_SIZE = 8;
     
 }

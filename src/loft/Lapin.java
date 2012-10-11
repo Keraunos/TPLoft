@@ -1,5 +1,7 @@
 package loft;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import loft.exception.LoftException;
 
 /**
@@ -99,6 +101,12 @@ public class Lapin extends Neuneu {
         }
         
         manger();
+    }
+    
+    
+    @Override
+    public void colorerObjet(Graphics g){
+        g.setColor(Color.PINK);
     }
     
 }

@@ -43,8 +43,10 @@ public class Case {
     /**
      * Ajoute une Nourriture generee aleatoirement sur cette Case.
      */
-    public void ajouterNourriture() {
-        this.denrees.add(Nourriture.genererNourriture());
+    public Nourriture ajouterNourriture() {
+        Nourriture nourr = Nourriture.genererNourriture(this);
+        this.denrees.add(nourr);
+        return nourr;
     }
     
     /**

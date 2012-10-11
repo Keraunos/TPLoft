@@ -1,5 +1,6 @@
 package loft;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import loft.exception.LoftException;
 
@@ -26,11 +27,13 @@ public abstract class Neuneu extends Comestible {
     }
     
     public int getX() {
-        return this._case.getX();
+        if (_case == null) return -1;
+        return _case.getX();
     }
     
     public int getY() {
-        return this._case.getY();
+        if (_case == null) return -1;
+        return _case.getY();
     }
     
     /**
@@ -210,6 +213,22 @@ public abstract class Neuneu extends Comestible {
         else                                str = "N";
         
         return str;
+    }
+    
+    
+    @Override
+    public void dessinerObjet(Graphics g) {
+        try {
+            this.rectangle(g,
+                getX()*Config.ZOOM_FACTOR,
+                getY()*Config.ZOOM_FACTOR,
+                Config.NEUNEU_SIZE,
+                Config.NEUNEU_SIZE);
+        } catch (Exception e) {
+            // TODO Gerer cette exception : pas vraiment un probleme,
+            // signifie que ce Neuneu a ete exclu du plateau
+            // NullPointerException dans getX() (this._case est NULL)
+        }
     }
 
 }
