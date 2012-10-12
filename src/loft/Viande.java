@@ -23,7 +23,7 @@ public class Viande extends Nourriture {
     
     
     @Override
-    public void colorerObjet(Graphics g){
+    public void colorer(Graphics g){
         g.setColor(Color.RED);
     }
     

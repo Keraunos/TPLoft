@@ -26,14 +26,6 @@ public abstract class Neuneu extends Comestible {
         return this.energie;
     }
     
-    public int getX() {
-        return _case.getX();
-    }
-    
-    public int getY() {
-        return _case.getY();
-    }
-    
     /**
      * Deplace le Neuneu dans une direction aleatoire.
      * @throws LoftException 
@@ -201,7 +193,7 @@ public abstract class Neuneu extends Comestible {
      * 
      * @param mode Mode d'affichage.
      */
-    public String afficherNeuneu(int mode) {
+    public String afficherDebug(int mode) {
         String str = "";
         
         if      (this instanceof Lapin)     str = "L";
@@ -215,10 +207,12 @@ public abstract class Neuneu extends Comestible {
     
     
     @Override
-    public void dessinerObjet(Graphics g) {
+    public void tracer(Graphics g) {
         try {
-            this.rectangle(g, getX(), getY(),
-                Config.NEUNEU_SIZE, Config.NEUNEU_SIZE);
+            this.rectangle(g,
+                Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE + 1) * getX() + 1,
+                Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE + 1) * getY() + 1 + positionRelative,
+                Config.GUI_NEUNEU_SIZE, Config.GUI_NEUNEU_SIZE);
         } catch (Exception e) {
             // TODO Gerer cette exception : pas vraiment un probleme,
             // signifie que ce Neuneu a ete exclu du plateau

@@ -40,7 +40,7 @@ public abstract class Nourriture extends Comestible{
      * 
      * @param mode Mode d'affichage.
      */
-    public String afficherNourriture(int mode) {
+    public String afficherDebug(int mode) {
         String str = "";
         
         if      (this instanceof Fruit)     str = "f";
@@ -53,15 +53,16 @@ public abstract class Nourriture extends Comestible{
     
     
     @Override
-    public void dessinerObjet(Graphics g) {
+    public void tracer(Graphics g) {
         try {
-            cercle(g,
-                    (float) _case.getX() + Config.FOOD_SHIFT,
-                    (float) _case.getY() + Config.FOOD_SHIFT,
-                    Config.FOOD_SIZE);
+            this.cercle(g,
+                Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE + 1) * (getX() + 1) - Config.GUI_FOOD_SIZE,
+                Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE + 1) * getY() + positionRelative,
+                Config.GUI_FOOD_SIZE);
         } catch (Exception e) {
             // TODO Gerer cette exception : pas vraiment un probleme,
             // signifie que cette Nourriture a ete exclue du plateau
+            // NullPointerException dans getX() (this._case est NULL)
         }
     }
     

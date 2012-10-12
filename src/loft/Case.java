@@ -1,5 +1,6 @@
 package loft;
 
+import java.awt.Graphics;
 import loft.exception.LoftException;
 import java.util.ArrayList;
 
@@ -119,11 +120,58 @@ public class Case {
     
     
     /**
+     * Dessine le contenu de la Case dans l'Affichage
+     */
+    public void dessiner(Graphics g) {
+        
+        int nbNeu = occupants.size();
+        int nbNou = denrees.size();
+        // espacement qui sert a distinguer les Comestibles presents sur la meme Case
+        int pas;
+        // distance d'un Comestible au bord superieur de la Case
+        int ordonneeRelative;
+        
+        // dessiner les Neuneus s'il y en a
+        if (nbNeu > 0) {
+            if (nbNeu == 1) pas = 0;
+            else pas = (int) ((float) (Config.GUI_SQUARE_SIZE - Config.GUI_NEUNEU_SIZE) / (nbNeu-1));
+
+            for (int cNeu = 0; cNeu < nbNeu; cNeu++) {
+                //System.out.println("---> case [" + i + "][" + j + "] - neuneu " + occupants.get(cCom));
+                ordonneeRelative = cNeu * pas;
+                try {
+                    occupants.get(cNeu).setPositionRelative(ordonneeRelative);
+                    occupants.get(cNeu).dessiner(g);
+                } catch (IndexOutOfBoundsException ex) {
+                    // ignore exception gracefully
+                }
+            }
+        }
+        
+        // dessiner les Nourritures s'il y en a
+        if (nbNou > 0) {
+            if (nbNou == 1) pas = 0;
+            else pas = (int) ((float) (Config.GUI_SQUARE_SIZE - Config.GUI_FOOD_SIZE) / (nbNou - 1));
+
+            for (int cNou = 0; cNou < nbNou; cNou++) {
+                ordonneeRelative = cNou * pas;
+                try {
+                    denrees.get(cNou).setPositionRelative(ordonneeRelative);
+                    denrees.get(cNou).dessiner(g);
+                } catch (IndexOutOfBoundsException ex) {
+                    // ignore exception gracefully
+                }
+            }
+        }
+    }
+    
+    
+    /**
      * Fonction de DEBUG. Affiche l'etat de la Case.
      * 
      * @param mode Mode d'affichage.
      */
-    public String afficherCase(int mode) {
+    public String afficherDebug(int mode) {
         
         int nbNeuneus = occupants.size();
         int nbNourritures = denrees.size();
@@ -142,7 +190,7 @@ public class Case {
                         if ((k == nbElts) && (nbNeuneus > nbElts))
                             contenuNeu += (nbNeuneus - nbElts + 1);
                         else
-                            contenuNeu += occupants.get(k-1).afficherNeuneu(0);
+                            contenuNeu += occupants.get(k-1).afficherDebug(0);
                     }
                     
                     if (k > nbNourritures) contenuNou += " ";
@@ -150,7 +198,7 @@ public class Case {
                         if ((k == nbElts) && (nbNourritures > nbElts))
                             contenuNou += (nbNourritures - nbElts + 1);
                         else
-                            contenuNou += denrees.get(k-1).afficherNourriture(0);
+                            contenuNou += denrees.get(k-1).afficherDebug(0);
                     }
                 }
                 contenu += contenuNeu + contenuNou;

@@ -23,7 +23,7 @@ public class Alcool extends Nourriture {
     
     
     @Override
-    public void colorerObjet(Graphics g){
+    public void colorer(Graphics g){
         g.setColor(Color.MAGENTA);
     }
     

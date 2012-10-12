@@ -40,7 +40,7 @@ public class Cannibale extends Vorace {
     
     
     @Override
-    public void colorerObjet(Graphics g){
+    public void colorer(Graphics g){
         g.setColor(Color.GREEN);
     }
     

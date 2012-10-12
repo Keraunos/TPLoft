@@ -34,7 +34,7 @@ public class Erratique extends Neuneu {
     
     
     @Override
-    public void colorerObjet(Graphics g){
+    public void colorer(Graphics g){
         g.setColor(Color.DARK_GRAY);
     }
     

@@ -2,6 +2,7 @@ package loft;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 import java.io.*;
 import java.util.ArrayList;
 import loft.exception.LoftException;
@@ -24,6 +25,7 @@ public class Plateau extends ObjetGraphique {
     // donnes initiales
     private int initPopulation;
     private int initNourriture;
+    private boolean estInitialise = false;
     
     // tableaux de cases et de population
     private Case[][] cases; // Case[width][height]
@@ -60,16 +62,18 @@ public class Plateau extends ObjetGraphique {
     }
     
     
-    public void initPlateau() {
+    private void init() {
+        
+        estInitialise = true;
         
         // construction des Cases vides
-        this.cases = new Case[w][h];
+        cases = new Case[w][h];
         for(int i = 0; i < w; i++ )
             for(int j = 0; j < h; j++)
                 cases[i][j] = new Case(i, j);
         
         // creation de la population initiale
-        this.population = new ArrayList<Neuneu>();
+        population = new ArrayList<Neuneu>();
         for (int k = 0 ; k < initPopulation; k++)
             inclureNeuneu();
         
@@ -114,6 +118,8 @@ public class Plateau extends ObjetGraphique {
      */
     public void jouerTour() {
         
+        if (!estInitialise) init();
+        
         // inclure Neuneus si population trop basse
         while (population.size() <= Config.POP_LOW_LIMIT ||
                 population.size() <= Config.POP_LOW_LIMIT_RATIO*initPopulation)
@@ -153,7 +159,6 @@ public class Plateau extends ObjetGraphique {
         neu._case.enleverNeuneu(neu);
         neu._case = null;
         
-        dessin.suppressionObjet(neu);
     }
     
     
@@ -170,7 +175,6 @@ public class Plateau extends ObjetGraphique {
         Neuneu neu = c.ajouterNeuneu();
         this.population.add(neu);
         
-        dessin.ajoutObjet(neu);
     }
     
     
@@ -183,7 +187,6 @@ public class Plateau extends ObjetGraphique {
         Neuneu neu = _case.ajouterNeuneu();
         this.population.add(neu);
         
-        dessin.ajoutObjet(neu);
     }
     
     
@@ -194,7 +197,6 @@ public class Plateau extends ObjetGraphique {
         Nourriture nourr = getRandCase().ajouterNourriture();
         nbDenrees++;
         
-        dessin.ajoutObjet(nourr);
     }
     
     
@@ -214,7 +216,6 @@ public class Plateau extends ObjetGraphique {
         nourr._case = null;
         nbDenrees--;
         
-        dessin.suppressionObjet(nourr);
     }
     
     
@@ -229,21 +230,44 @@ public class Plateau extends ObjetGraphique {
     
     
     @Override
-    public void colorerObjet(Graphics g) {
+    public void colorer(Graphics g) {
         g.setColor(Color.WHITE);
     }
     
     
     @Override
-    public void dessinerObjet(Graphics g) {
-        this.rectangle(g, 0, 0,
-                Config.BOARD_WIDTH*Config.ZOOM_FACTOR,
-                Config.BOARD_HEIGHT*Config.ZOOM_FACTOR);
+    public void tracer(Graphics g) {
+        
+        // fond de la fenetre
+        g.setColor(Color.YELLOW);
+        g.fillRect(0, 0, Config.GUI_WINDOW_WIDTH, Config.GUI_WINDOW_HEIGHT);
+        
+        // fond du plateau
+        g.setColor(Color.WHITE);
+        rectangle(g,
+                Config.GUI_SIDE_MARGIN, Config.GUI_TOP_MARGIN,
+                Config.GUI_BOARD_WIDTH, Config.GUI_BOARD_HEIGHT);
+        
+        // grille (lignes) du plateau
         g.setColor(Color.GRAY);
-        for(int i = 0; i<=w; i++)
-            this.ligne(g, i, 0, i, h);
-        for(int j = 0; j<=h; j++)
-            this.ligne(g, 0, j, w, j);
+        for (int i = 0; i <= w; i++)
+            this.ligne(g,
+                    Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE+1) * i,
+                    Config.GUI_TOP_MARGIN,
+                    Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE+1) * i,
+                    Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE+1) * h);
+        for(int j = 0; j <= h; j++)
+            this.ligne(g,
+                    Config.GUI_SIDE_MARGIN,
+                    Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE+1) * j,
+                    Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE+1) * w,
+                    Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE+1) * j);
+        
+        // dessiner le contenu de toutes les cases
+        for (int i = 0; i < w; i++)
+            for (int j = 0; j < h; j ++)
+                cases[i][j].dessiner(g);
+        
     }
     
     
@@ -276,7 +300,7 @@ public class Plateau extends ObjetGraphique {
             System.out.print(" "+(j-((j/10)*10))+" ");
             // ligne de cases
             for (int i = 0; i < w; i++)
-                System.out.print(cases[i][j].afficherCase(mode));
+                System.out.print(cases[i][j].afficherDebug(mode));
             System.out.println("");
         }
         

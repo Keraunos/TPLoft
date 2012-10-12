@@ -22,6 +22,14 @@ public abstract class Comestible extends ObjetGraphique {
         return this._case;
     }
     
+    public int getX() {
+        return _case.getX();
+    }
+    
+    public int getY() {
+        return _case.getY();
+    }
+    
     public void setCase(Case _case){
         this._case = _case;
     }

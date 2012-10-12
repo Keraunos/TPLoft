@@ -22,14 +22,13 @@ public class Main {
         
         // lancer la partie
         Plateau plateau = Plateau.getInstance();
-        plateau.initPlateau();
         for (int i = 0; i < Config.NB_TURNS; i++) {
             plateau.jouerTour();
         }
         
 //        Vector<ObjetGraphique> mesObjetsG = new Vector<ObjetGraphique>();
 //        Plateau plateau = Plateau.getInstance();
-//        plateau.initPlateau();
+//        plateau.init();
         
 //        try {
 //
