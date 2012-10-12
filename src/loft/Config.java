@@ -10,6 +10,7 @@ public class Config {
     // mode de deboggage
     protected static final boolean DEBUG_MODE = true;
     protected static final boolean WAIT_FOR_USER = true;
+    protected static final long PAUSE_DURATION = 200;
     protected static final int NB_DISP_ELTS_IN_SQUARE = 4;
     
     // deroulement d'une partie
