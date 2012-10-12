@@ -14,6 +14,10 @@ public class Viande extends Nourriture {
     protected static int count = 0;
     
     
+    /**
+     * Constructeur
+     * @param _case La Case sur laquelle cette Viande sera creee
+     */
     public Viande(Case _case) {
         this._case = _case;
         this.id = ++Viande.count;

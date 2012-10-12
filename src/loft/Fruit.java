@@ -15,6 +15,10 @@ public class Fruit extends Nourriture {
     protected static int count = 0;
     
     
+    /**
+     * Constructeur
+     * @param _case La Case sur laquelle ce Fruit sera cree
+     */
     public Fruit(Case _case) {
         this._case = _case;
         this.id = ++Fruit.count;

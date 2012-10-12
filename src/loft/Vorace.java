@@ -17,6 +17,7 @@ public class Vorace extends Neuneu {
     
     /**
      * Constructeur
+     * @param _case La Case ou ce Vorace sera inclu 
      */
     public Vorace(Case _case) {
         

@@ -16,6 +16,7 @@ public class Erratique extends Neuneu {
     
     /**
      * Constructeur
+     * @param _case La Case ou cet Erratique sera inclu 
      */
     public Erratique(Case _case) {
         

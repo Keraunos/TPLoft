@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import loft.exception.LoftException;
 
 /**
@@ -235,6 +237,11 @@ public class Plateau extends ObjetGraphique {
     }
     
     
+    /**
+     * Trace tout le Plateau de jeu : le fond, la grille, le contenu des Cases
+     * 
+     * @param g 
+     */
     @Override
     public void tracer(Graphics g) {
         
@@ -248,7 +255,7 @@ public class Plateau extends ObjetGraphique {
                 Config.GUI_SIDE_MARGIN, Config.GUI_TOP_MARGIN,
                 Config.GUI_BOARD_WIDTH, Config.GUI_BOARD_HEIGHT);
         
-        // grille (lignes) du plateau
+        // grille (lignes delimitant les cases)
         g.setColor(Color.GRAY);
         for (int i = 0; i <= w; i++)
             this.ligne(g,
@@ -263,7 +270,7 @@ public class Plateau extends ObjetGraphique {
                     Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE+1) * w,
                     Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE+1) * j);
         
-        // dessiner le contenu de toutes les cases
+        // contenu des cases
         for (int i = 0; i < w; i++)
             for (int j = 0; j < h; j ++)
                 cases[i][j].dessiner(g);
@@ -278,6 +285,7 @@ public class Plateau extends ObjetGraphique {
      */
     private void afficherPlateau(int mode) {
         
+        // definir l'espace entre les chiffres des abscisses
         String space = "";
         switch(mode) {
             case 0:
@@ -288,7 +296,7 @@ public class Plateau extends ObjetGraphique {
             default: space = " ";
         }
         
-        // dessiner la premiere ligne avec les coordonnees en abscisses
+        // dessiner la premiere ligne avec les chiffres des abscisses
         System.out.print("   ");
         for (int i = 0; i < w; i++)
             System.out.print(" " + (i-((i/10)*10)) + space);
@@ -311,6 +319,16 @@ public class Plateau extends ObjetGraphique {
             try {
                 r.read();
             } catch (IOException e) {}
+        } else {
+            double t1, t0 = System.currentTimeMillis();
+            do {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    System.out.println("Une erreur s'est produite lors de la pause entre deux tours.");
+                }
+                t1 = System.currentTimeMillis(); 
+            } while (t1-t0 < Config.PAUSE_DURATION);
         }
     }
     

@@ -18,6 +18,7 @@ public class Cannibale extends Vorace {
     
     /**
      * Constructeur
+     * @param _case La Case ou ce Cannibale sera inclu 
      */
     public Cannibale(Case _case) {
         
@@ -31,12 +32,6 @@ public class Cannibale extends Vorace {
         this.valeurGustative = 50;
         
     }
-    
-    
-//    @Override
-//    public void deplacer() throws LoftException {
-//        // TODO code
-//    }
     
     
     @Override

@@ -52,6 +52,11 @@ public abstract class Nourriture extends Comestible{
     }
     
     
+    /**
+     * Tracer cette Nourriture a droite de sa Case, alignee verticalement avec
+     * les autres presentes sur la meme Case.
+     * @param g 
+     */
     @Override
     public void tracer(Graphics g) {
         try {

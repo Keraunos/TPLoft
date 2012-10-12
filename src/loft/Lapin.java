@@ -19,6 +19,7 @@ public class Lapin extends Neuneu {
     
     /**
      * Constructeur
+     * @param _case La Case ou ce Lapin sera inclu 
      */
     public Lapin(Case _case) {
         

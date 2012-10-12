@@ -9,9 +9,9 @@ package loft;
 public abstract class Comestible extends ObjetGraphique {
     
     protected Case _case;
-    protected int valeurEnerg;
+    protected int valeurEnerg; // definit "la vie" (si 0 => mort/disparition)
     protected int id = 0;
-    protected int valeurGustative;
+    protected int valeurGustative; // definit l'attractivite (egalement sexuelle)
     
     
     public int getValeurEnerg(){

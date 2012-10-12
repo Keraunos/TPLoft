@@ -206,6 +206,11 @@ public abstract class Neuneu extends Comestible {
     }
     
     
+    /**
+     * Tracer ce Neuneu a gauche de sa Case, aligne verticalement avec les autres
+     * Neuneus presents sur la meme Case.
+     * @param g 
+     */
     @Override
     public void tracer(Graphics g) {
         try {

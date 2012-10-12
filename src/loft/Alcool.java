@@ -14,6 +14,10 @@ public class Alcool extends Nourriture {
     protected static int count = 0;
     
     
+    /**
+     * Constructeur
+     * @param _case La Case sur laquelle cet Alcool sera cree
+     */
     public Alcool(Case _case) {
         this._case = _case;
         this.id = ++Alcool.count;
