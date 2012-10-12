@@ -38,6 +38,15 @@ public class Lapin extends Neuneu {
     
     
     /**
+     * Fixe le nombre de tours de jeu depuis le dernier acte de reproduction
+     * de ce Neuneu
+     */
+    private void setDernierRapport(int dr) {
+        this.dernierRapport = dr;
+    }
+    
+    
+    /**
      * Deplace le Lapin vers le plus proche Neuneu en vue de se reproduire.
      * On considere que les deplacements en diagonale ne sont pas plus couteux en
      * energie que les deplacements en ligne droite, donc toutes les Cases
@@ -98,6 +107,8 @@ public class Lapin extends Neuneu {
         if (destination.equals(neuProche._case)) {
             accoupler(neuProche);
             dernierRapport = 0;
+            if (neuProche instanceof Lapin)
+                ((Lapin)neuProche).setDernierRapport(0);
         }
         
         manger();
