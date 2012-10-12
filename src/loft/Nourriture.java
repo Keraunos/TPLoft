@@ -56,8 +56,8 @@ public abstract class Nourriture extends Comestible{
     public void dessinerObjet(Graphics g) {
         try {
             cercle(g,
-                    _case.getX()*Config.ZOOM_FACTOR + 4,
-                    _case.getY()*Config.ZOOM_FACTOR + 4,
+                    (float) _case.getX() + Config.FOOD_SHIFT,
+                    (float) _case.getY() + Config.FOOD_SHIFT,
                     Config.FOOD_SIZE);
         } catch (Exception e) {
             // TODO Gerer cette exception : pas vraiment un probleme,

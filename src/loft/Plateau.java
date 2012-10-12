@@ -79,15 +79,6 @@ public class Plateau extends ObjetGraphique {
         
         if (Config.DEBUG_MODE) this.afficherPlateau(0);
         
-        // ajouter les objets graphiques a tracer
-        
-        for(Neuneu neu:population)
-            dessin.ajoutObjet(neu);
-        for(int i = 0; i < w; i++ )
-            for(int j = 0; j < h; j++)
-                for(Nourriture nourr:cases[i][j].getDenrees())
-                    dessin.ajoutObjet(nourr);
-        
         dessin.repaint();
     }
     
@@ -246,8 +237,13 @@ public class Plateau extends ObjetGraphique {
     @Override
     public void dessinerObjet(Graphics g) {
         this.rectangle(g, 0, 0,
-                Config.ZOOM_FACTOR*Config.BOARD_WIDTH,
-                Config.ZOOM_FACTOR*Config.BOARD_HEIGHT);
+                Config.BOARD_WIDTH*Config.ZOOM_FACTOR,
+                Config.BOARD_HEIGHT*Config.ZOOM_FACTOR);
+        g.setColor(Color.GRAY);
+        for(int i = 0; i<=w; i++)
+            this.ligne(g, i, 0, i, h);
+        for(int j = 0; j<=h; j++)
+            this.ligne(g, 0, j, w, j);
     }
     
     

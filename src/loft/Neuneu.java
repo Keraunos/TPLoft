@@ -27,12 +27,10 @@ public abstract class Neuneu extends Comestible {
     }
     
     public int getX() {
-        if (_case == null) return -1;
         return _case.getX();
     }
     
     public int getY() {
-        if (_case == null) return -1;
         return _case.getY();
     }
     
@@ -219,11 +217,8 @@ public abstract class Neuneu extends Comestible {
     @Override
     public void dessinerObjet(Graphics g) {
         try {
-            this.rectangle(g,
-                getX()*Config.ZOOM_FACTOR,
-                getY()*Config.ZOOM_FACTOR,
-                Config.NEUNEU_SIZE,
-                Config.NEUNEU_SIZE);
+            this.rectangle(g, getX(), getY(),
+                Config.NEUNEU_SIZE, Config.NEUNEU_SIZE);
         } catch (Exception e) {
             // TODO Gerer cette exception : pas vraiment un probleme,
             // signifie que ce Neuneu a ete exclu du plateau
