@@ -1,12 +1,11 @@
 package loft;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
-import java.awt.image.ImageObserver;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JButton;
 import loft.exception.LoftException;
 
 /**
@@ -36,6 +35,7 @@ public class Plateau extends ObjetGraphique {
     
     // GUI
     private static Affichage dessin;
+    private JButton button;
     
     
     /**
@@ -61,6 +61,22 @@ public class Plateau extends ObjetGraphique {
         dessin.ajoutObjet(this);
         dessin.setVisible(true);
         
+        if (!Config.WAIT_FOR_USER) return;
+        
+        this.button = new JButton();
+        button.setActionCommand("nextTurn");
+        button.addActionListener(dessin);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setText("Suivant");
+        //button.setSize(Config.GUI_BUTTON_WIDTH, Config.GUI_BUTTON_HEIGHT);
+        button.setBounds(
+                (Config.GUI_BOARD_WIDTH - Config.GUI_BUTTON_WIDTH)/2,
+                Config.GUI_BOARD_HEIGHT + Config.GUI_MARGIN_STD + Config.GUI_BUTTON_HEIGHT/2,
+                Config.GUI_BUTTON_WIDTH,
+                Config.GUI_BUTTON_HEIGHT);
+        button.setVisible(true);
+        dessin.add(button);
+        
     }
     
     
@@ -83,7 +99,7 @@ public class Plateau extends ObjetGraphique {
         for (int k = 0; k < initNourriture; k++)
             inclureNourriture();
         
-        if (Config.DEBUG_MODE) this.afficherPlateau(0);
+        if (Config.DEBUG_MODE) this.afficherDebug(0);
         
         dessin.repaint();
     }
@@ -143,7 +159,7 @@ public class Plateau extends ObjetGraphique {
             }
         }
         
-        if (Config.DEBUG_MODE) afficherPlateau(0);
+        if (Config.DEBUG_MODE) afficherDebug(0);
         
         dessin.repaint();
         
@@ -245,35 +261,40 @@ public class Plateau extends ObjetGraphique {
     @Override
     public void tracer(Graphics g) {
         
+        if (!this.estInitialise) return;
+        
         // fond de la fenetre
-        g.setColor(Color.YELLOW);
+        Color fond = new Color(250, 250, 220);
+        g.setColor(fond);
         g.fillRect(0, 0, Config.GUI_WINDOW_WIDTH, Config.GUI_WINDOW_HEIGHT);
         
         // fond du plateau
         g.setColor(Color.WHITE);
         rectangle(g,
-                Config.GUI_SIDE_MARGIN, Config.GUI_TOP_MARGIN,
+                Config.GUI_MARGIN_SIDE, Config.GUI_MARGIN_TOP,
                 Config.GUI_BOARD_WIDTH, Config.GUI_BOARD_HEIGHT);
         
         // grille (lignes delimitant les cases)
         g.setColor(Color.GRAY);
         for (int i = 0; i <= w; i++)
             this.ligne(g,
-                    Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE+1) * i,
-                    Config.GUI_TOP_MARGIN,
-                    Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE+1) * i,
-                    Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE+1) * h);
+                    Config.GUI_MARGIN_SIDE + (Config.GUI_SQUARE_SIZE+1) * i,
+                    Config.GUI_MARGIN_TOP,
+                    Config.GUI_MARGIN_SIDE + (Config.GUI_SQUARE_SIZE+1) * i,
+                    Config.GUI_MARGIN_TOP + (Config.GUI_SQUARE_SIZE+1) * h);
         for(int j = 0; j <= h; j++)
             this.ligne(g,
-                    Config.GUI_SIDE_MARGIN,
-                    Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE+1) * j,
-                    Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE+1) * w,
-                    Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE+1) * j);
+                    Config.GUI_MARGIN_SIDE,
+                    Config.GUI_MARGIN_TOP + (Config.GUI_SQUARE_SIZE+1) * j,
+                    Config.GUI_MARGIN_SIDE + (Config.GUI_SQUARE_SIZE+1) * w,
+                    Config.GUI_MARGIN_TOP + (Config.GUI_SQUARE_SIZE+1) * j);
         
         // contenu des cases
         for (int i = 0; i < w; i++)
             for (int j = 0; j < h; j ++)
                 cases[i][j].dessiner(g);
+        
+        button.repaint();
         
     }
     
@@ -283,7 +304,7 @@ public class Plateau extends ObjetGraphique {
      * 
      * @param mode Mode d'affichage.
      */
-    private void afficherPlateau(int mode) {
+    private void afficherDebug(int mode) {
         
         // definir l'espace entre les chiffres des abscisses
         String space = "";
@@ -313,13 +334,16 @@ public class Plateau extends ObjetGraphique {
         }
         
         // laisser l'utilisateur passer au tour suivant
-        if (Config.WAIT_FOR_USER) {
+        if (Config.WAIT_FOR_ACTION_IN_CONSOLE) {
             System.out.println("\nAppuyer sur la touche ENTER pour continuer...");
             Reader r = new InputStreamReader(System.in);
             try {
                 r.read();
             } catch (IOException e) {}
-        } else {
+        }
+        
+        // ou passer au tour suivant automatiquement
+        else if (!Config.WAIT_FOR_USER) {
             double t1, t0 = System.currentTimeMillis();
             do {
                 try {

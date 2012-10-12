@@ -61,8 +61,8 @@ public abstract class Nourriture extends Comestible{
     public void tracer(Graphics g) {
         try {
             this.cercle(g,
-                Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE + 1) * (getX() + 1) - Config.GUI_FOOD_SIZE,
-                Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE + 1) * getY() + positionRelative,
+                Config.GUI_MARGIN_SIDE + (Config.GUI_SQUARE_SIZE + 1) * (getX() + 1) - Config.GUI_FOOD_SIZE,
+                Config.GUI_MARGIN_TOP + (Config.GUI_SQUARE_SIZE + 1) * getY() + positionRelative,
                 Config.GUI_FOOD_SIZE);
         } catch (Exception e) {
             // TODO Gerer cette exception : pas vraiment un probleme,

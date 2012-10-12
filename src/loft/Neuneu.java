@@ -215,8 +215,8 @@ public abstract class Neuneu extends Comestible {
     public void tracer(Graphics g) {
         try {
             this.rectangle(g,
-                Config.GUI_SIDE_MARGIN + (Config.GUI_SQUARE_SIZE + 1) * getX() + 1,
-                Config.GUI_TOP_MARGIN + (Config.GUI_SQUARE_SIZE + 1) * getY() + 1 + positionRelative,
+                Config.GUI_MARGIN_SIDE + (Config.GUI_SQUARE_SIZE + 1) * getX() + 1,
+                Config.GUI_MARGIN_TOP + (Config.GUI_SQUARE_SIZE + 1) * getY() + 1 + positionRelative,
                 Config.GUI_NEUNEU_SIZE, Config.GUI_NEUNEU_SIZE);
         } catch (Exception e) {
             // TODO Gerer cette exception : pas vraiment un probleme,

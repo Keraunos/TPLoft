@@ -22,32 +22,14 @@ public class Main {
         
         // lancer la partie
         Plateau plateau = Plateau.getInstance();
-        for (int i = 0; i < Config.NB_TURNS; i++) {
+        if (!Config.WAIT_FOR_USER) {
+            for (int i = 0; i < Config.NB_TURNS || i==1; i++) {
+                plateau.jouerTour();
+            }
+        }
+        else {
             plateau.jouerTour();
         }
-        
-//        Vector<ObjetGraphique> mesObjetsG = new Vector<ObjetGraphique>();
-//        Plateau plateau = Plateau.getInstance();
-//        plateau.init();
-        
-//        try {
-//
-//            Case c00 = plateau.getCase(0, 0);
-//            
-//            Lapin l1 = new Lapin(c00);
-//            
-//            mesObjetsG.add(l1);
-//            
-//            // Instructions d'affichage des figures
-//            Affichage monDessin;
-//            monDessin = new Affichage();
-//            monDessin.ajoutObjet(l1);
-//            monDessin.setVisible(true);
-//            
-//
-//        } catch (LoftException e) {
-//          e.printStackTrace();
-//        }
     }
     
 }
