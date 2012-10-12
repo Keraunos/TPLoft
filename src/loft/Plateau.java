@@ -51,10 +51,12 @@ public class Plateau extends ObjetGraphique {
         // nombre initial de Neuneus et de Nourritures
         this.initPopulation = (int) ((float)(w*h)*Config.POPULATION_RATIO);
         this.initNourriture = (int) ((float)(w*h)*Config.FOOD_RATIO);
+        this.nbDenrees = 0;
         
         dessin = new Affichage();
         dessin.ajoutObjet(this);
         dessin.setVisible(true);
+        
     }
     
     
@@ -72,7 +74,6 @@ public class Plateau extends ObjetGraphique {
             inclureNeuneu();
         
         // creation des denrees initiales
-        this.nbDenrees = initNourriture;
         for (int k = 0; k < initNourriture; k++)
             inclureNourriture();
         
