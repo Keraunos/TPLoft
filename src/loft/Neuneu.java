@@ -87,6 +87,7 @@ public abstract class Neuneu extends Comestible {
      * @throws LoftException 
      */
     public void allerA(Case destination) throws LoftException {
+        if (_case.equals(destination)) return;
         _case.enleverNeuneu(this);
         _case = destination;
         destination.ajouterNeuneu(this);
