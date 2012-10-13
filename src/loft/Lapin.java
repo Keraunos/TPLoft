@@ -74,9 +74,6 @@ public class Lapin extends Neuneu {
             // distance du Neuneu courant
             distance = getDistance(neu);
             
-            // ne pas aller vers les Neuneus qui sont sur la meme case
-            if (distance == 0) continue;
-            
             // cas d'un Neuneu plus proche que l'actuel plus proche
             if (distance < distMin) {
                 distMin = distance;
