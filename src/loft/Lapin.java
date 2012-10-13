@@ -71,9 +71,6 @@ public class Lapin extends Neuneu {
         
         for (Neuneu neu:plateau.getPopulation()) {
             
-            // pas de reproduction avec les exclus
-            if (neu.estExclu()) continue;
-            
             // distance du Neuneu courant
             distance = getDistance(neu);
             
