@@ -27,9 +27,10 @@ public class Erratique extends Neuneu {
         
         this.valeurEnerg = 35;
         this.energie = Config.MAX_ENERGY;
-        this.fatigueDeplacement = 8;
+        this.fatigueDeplacement = 4;
         this.fatigueCoit = 22;
-        this.valeurGustative = 55;
+        this.fatigueTemps = 1;
+        this.valeurGustative = Config.TASTE_ERRATIQUE;
         
     }
     

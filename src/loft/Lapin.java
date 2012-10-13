@@ -13,8 +13,8 @@ import loft.exception.LoftException;
 public class Lapin extends Neuneu {
     
     protected static int count = 0;
-    protected static int intervalleRapports = 5; // nb de tours entre deux rapports
-    protected int dernierRapport;
+    protected static int intervalleRapports = Config.SEX_FREQ_LAPIN; 
+    protected int dernierRapport; // nb de tours depuis le dernier acte de reproduction
     
     
     /**
@@ -30,9 +30,10 @@ public class Lapin extends Neuneu {
         
         this.valeurEnerg = 40;
         this.energie = Config.MAX_ENERGY;
-        this.fatigueDeplacement = 8;
-        this.fatigueCoit = 20;
-        this.valeurGustative = 60;
+        this.fatigueDeplacement = 5;
+        this.fatigueCoit = 10;
+        this.fatigueTemps = 1;
+        this.valeurGustative = Config.TASTE_LAPIN;
         this.dernierRapport = Lapin.intervalleRapports;
         
     }
@@ -58,36 +59,29 @@ public class Lapin extends Neuneu {
     @Override
     public void deplacer() throws LoftException {
         
+        fatiguer();
+        
         // si le Lapin n'a pas besoin de se reproduire, il erre
         if (++dernierRapport < Lapin.intervalleRapports) {
             deplacerHasard();
             return;
         }
         
-        // chercher les Neuneus les plus proches
+        // TODO rendre les Lapins un peu plus intelligents que les Erratiques sur la recherche de nourriture
+        // chercher les Neuneus les plus proches (neuProche peut etre NULL)
         Neuneu neuProche = (Neuneu) chercher(plateau.getPopulation());
+        boolean cibleAtteinte = allerVers(neuProche);
         
-        // si aucun Neuneu trouve, se deplacer au hasard
-        if (neuProche == null) {
-            deplacerHasard();
-            return;
-        }
-        
-        // se deplacer vers le Neuneu choisi et s'accoupler si possible
-        int dX = (int) Math.signum((float) (neuProche.getX() - getX()));
-        int dY = (int) Math.signum((float) (neuProche.getY() - getY()));
-        Case destination = plateau.getCase(getX() + dX, getY() + dY);
-        allerA(destination);
+        manger();
         
         // TODO: fixer une limite max de population par case pour eviter divergence
-        if (destination.equals(neuProche._case)) {
+        if (cibleAtteinte) {
             accoupler(neuProche);
             dernierRapport = 0;
             if (neuProche instanceof Lapin)
-                ((Lapin)neuProche).setDernierRapport(0);
+                ((Lapin) neuProche).setDernierRapport(0);
         }
         
-        manger();
     }
     
     

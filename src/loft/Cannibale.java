@@ -29,8 +29,31 @@ public class Cannibale extends Vorace {
         
         this.valeurEnerg = 45;
         this.fatigueCoit = 24;
-        this.valeurGustative = 50;
+        this.fatigueDeplacement = 22;
+        this.fatigueTemps = 2;
+        this.valeurGustative = Config.TASTE_CANNIBALE;
         
+    }
+    
+    
+    /**
+     * Deplace le Cannibale vers le Comestible le plus proche .
+     * On considere que les deplacements en diagonale ne sont pas plus couteux en
+     * energie que les deplacements en ligne droite, donc toutes les Cases
+     * adjacentes a une Case donnee sont a egale distance de cette derniere.
+     * 
+     * @throws LoftException 
+     */
+    @Override
+    public void deplacer() throws LoftException {
+        
+        fatiguer();
+        
+        // chercher les Comestibles les plus proches
+        Comestible comProche = (Comestible) chercher(plateau.getComestibles());
+        allerVers(comProche);
+        
+        manger();
     }
     
     

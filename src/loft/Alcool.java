@@ -21,7 +21,8 @@ public class Alcool extends Nourriture {
     public Alcool(Case _case) {
         this._case = _case;
         this.id = ++Alcool.count;
-        this.valeurGustative = 90;
+        
+        this.valeurGustative = Config.TASTE_ALCOOL;
         this.valeurEnerg = 15;
     }
     

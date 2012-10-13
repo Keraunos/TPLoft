@@ -70,7 +70,7 @@ public class Plateau extends ObjetGraphique {
         button.setText("Suivant");
         //button.setSize(Config.GUI_BUTTON_WIDTH, Config.GUI_BUTTON_HEIGHT);
         button.setBounds(
-                (Config.GUI_BOARD_WIDTH - Config.GUI_BUTTON_WIDTH)/2,
+                (Config.GUI_WINDOW_WIDTH - Config.GUI_BUTTON_WIDTH)/2,
                 Config.GUI_BOARD_HEIGHT + Config.GUI_MARGIN_STD + Config.GUI_BUTTON_HEIGHT/2,
                 Config.GUI_BUTTON_WIDTH,
                 Config.GUI_BUTTON_HEIGHT);
@@ -127,6 +127,18 @@ public class Plateau extends ObjetGraphique {
     
     
     /**
+     * Retourne l'ensemble des Comestibles sur le Plateau.
+     * @return La liste des Comestibles sur le Plateau.
+     */
+    public ArrayList<Comestible> getComestibles() {
+        ArrayList<Comestible> comestibles = new ArrayList<Comestible>();
+        comestibles.addAll(this.getDenrees());
+        comestibles.addAll(this.population);
+        return comestibles;
+    }
+    
+    
+    /**
      * Retourne la Case aux coordonnees specifiees.
      * 
      * @param x L'abscisse de la Case.
@@ -167,7 +179,7 @@ public class Plateau extends ObjetGraphique {
         for (Neuneu neu:populationDebutTour) {
             
             try {
-                neu.deplacer();
+                if (!neu.estExclu()) neu.deplacer();
             } catch (LoftException e) {
                 e.displayErrorMsg(neu);
             }
@@ -190,7 +202,7 @@ public class Plateau extends ObjetGraphique {
         population.remove(neu);
         neu._case.enleverNeuneu(neu);
         neu._case = null;
-        
+        neu.energie = 0; // peut etre fait dans Neuneu.manger()
     }
     
     
@@ -248,6 +260,23 @@ public class Plateau extends ObjetGraphique {
         nourr._case = null;
         nbDenrees--;
         
+    }
+    
+    
+    /**
+     * Supprime/exclut du jeu le Comestible specifie
+     * 
+     * @param com Comestible a supprimer/exclure
+     * @param _case Case sur laquelle se trouve le Comestible specifie
+     */
+    public void supprimerComestible(Comestible com, Case _case) throws LoftException {
+        
+        if (com instanceof Nourriture) supprimerNourriture((Nourriture) com, _case);
+        else if (com instanceof Neuneu) exclure((Neuneu) com);
+        else throw new LoftException(
+                LoftException.FailureContext.REMOVING_COMESTIBLE,
+                LoftException.FailureType.COMESTIBLE_TYPE_NOT_HANDLED,
+                com);
     }
     
     

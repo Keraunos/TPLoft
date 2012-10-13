@@ -120,6 +120,30 @@ public class Case {
     
     
     /**
+     * Retourne le Comestible le plus attractif sur cette Case
+     * 
+     * @return Le Comestible avec la plus grande valeurGustative trouvee (premiere trouvee)
+     */
+    public Comestible getMeilleurComestible(Neuneu mangeur) {
+        
+        Comestible meilleurComestible = null;
+        if (getMeilleureDenree() != null) meilleurComestible = getMeilleureDenree();
+        int maxValeurGustative = 0;
+        
+        ArrayList<Neuneu> aManger = new ArrayList<Neuneu>(occupants);
+        if (mangeur != null) aManger.remove(mangeur);
+        
+        for (Comestible com:aManger)
+            if (com.valeurGustative > maxValeurGustative) {
+                com.valeurGustative = maxValeurGustative;
+                meilleurComestible = com;
+            }
+        
+        return meilleurComestible;
+    }
+    
+    
+    /**
      * Dessine le contenu de la Case dans l'Affichage
      */
     public void dessiner(Graphics g) {
@@ -131,6 +155,7 @@ public class Case {
         // distance d'un Comestible au bord superieur de la Case
         int ordonneeRelative;
         
+        // TODO prevoir le cas ou le nb de Neuneus est tres important (ex: affichage des n premiers et du nb total)
         // dessiner les Neuneus s'il y en a
         if (nbNeu > 0) {
             if (nbNeu == 1) pas = 0;

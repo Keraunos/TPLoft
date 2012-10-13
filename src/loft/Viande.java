@@ -21,7 +21,7 @@ public class Viande extends Nourriture {
     public Viande(Case _case) {
         this._case = _case;
         this.id = ++Viande.count;
-        this.valeurGustative = 50;
+        this.valeurGustative = Config.TASTE_VIANDE;
         this.valeurEnerg = 50;
     }
     

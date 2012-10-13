@@ -14,14 +14,19 @@ import loft.exception.LoftException;
  * @author Marlene, Gaetan
  */
 public abstract class Neuneu extends Comestible {
-	
-    protected int energie;
-    protected int fatigueDeplacement;
-    protected int fatigueCoit;
+    
     protected Plateau plateau;
+    
+    protected int energie;
+    protected int fatigueDeplacement; // cout energetique du deplacement unitaire
+    protected int fatigueCoit; // cout energetique de la reproductin
+    protected int fatigueTemps; // impact du temps qui passe (par tour du jeu)
+    
+    
     // coordonnees dans le GUI (Affichage)
     protected Integer guiX = null;
     protected Integer guiY = null;
+    
     // TODO rajouter la gestion des besoins reproductifs pour tous les Neuneus
     // TODO rajouter une fatigue liee au temps qui passe, meme sans action
     
@@ -35,9 +40,20 @@ public abstract class Neuneu extends Comestible {
      * @throws LoftException 
      */
     public void deplacer() throws LoftException {
+        fatiguer();
         deplacerHasard();
     }
     
+    
+    public void fatiguer() throws LoftException {
+        energie -= fatigueTemps;
+        if (energie <= 0) {
+            exclure();
+            throw new LoftException(
+                    LoftException.FailureContext.GETTING_OLDER_NEUNEU,
+                    LoftException.FailureType.NEUNEU_IS_DEAD);
+        }
+    }
     
     /**
      * Deplace le Neuneu avec un comportement par defaut : erratique.
@@ -78,6 +94,30 @@ public abstract class Neuneu extends Comestible {
         // TODO: si destination==null, chercher a se deplacer pour se nourrir ou se reproduire
         
         manger();
+    }
+    
+    
+    /**
+     * Deplace le Neuneu vers un Comestible cible sur le plateau
+     * @param cible Comestible vers lequel deplacer le Neuneu
+     * @return Boolean True si le Neuneu est sur la meme case que sa cible apres deplacement
+     * @throws LoftException 
+     */
+    public Boolean allerVers(Comestible cible) throws LoftException {
+        
+        // si aucun Comestible trouve, se deplacer au hasard
+        if (cible == null) {
+            deplacerHasard();
+            return false;
+        }
+        
+        // se deplacer vers le Comestible choisi
+        int dX = (int) Math.signum((float) (cible.getX() - getX()));
+        int dY = (int) Math.signum((float) (cible.getY() - getY()));
+        Case destination = plateau.getCase(getX() + dX, getY() + dY);
+        allerA(destination);
+        
+        return (cible._case == _case);
     }
     
     
@@ -126,9 +166,19 @@ public abstract class Neuneu extends Comestible {
      * 
      * @param neu Le Neuneu partenaire dans l'acte de reproduction.
      */
-    public void accoupler(Neuneu neu) {
-        plateau.inclurePetitNeuneu(_case);
+    public void accoupler(Neuneu neu) throws LoftException {
         // TODO: gerer les besoins reproductifs des Neuneus autres que Lapins
+        
+        plateau.inclurePetitNeuneu(_case);
+        
+        // TODO : seul ce Neuneu se fatigue : gerer la fatigue du partenaire
+        energie -= fatigueCoit;
+        if (energie <= 0) {
+            exclure();
+            throw new loft.exception.LoftException(
+                    LoftException.FailureContext.REPRODUCING_NEUNEU,
+                    LoftException.FailureType.NEUNEU_IS_DEAD);
+        }
     }
     
     
@@ -142,18 +192,23 @@ public abstract class Neuneu extends Comestible {
         if (energie >= Config.MAX_ENERGY) return;
         
         // se nourrir avec les Nourritures presentes sur la Case
-        Nourriture repas = null;
+        Comestible repas = null;
         while (energie < Config.MAX_ENERGY) {
             
-            repas = _case.getMeilleureDenree();
+            if (this instanceof Cannibale) repas = _case.getMeilleurComestible(this);
+            else repas = _case.getMeilleureDenree();
+            
             if (repas == null) return;
             
             // consommer en entier, sans depasser le max d'energie
             energie += repas.getValeurEnerg();
             if (energie > Config.MAX_ENERGY) energie = Config.MAX_ENERGY;
-            plateau.supprimerNourriture(repas, _case);
+            plateau.supprimerComestible(repas, _case);
             
-            if (Config.DEBUG_MODE) System.out.println(this.toString() + " a mange " + repas.toString() + " sur la case [" + getX() + "][" + getY() + "].");
+            if (repas instanceof Neuneu)
+                System.out.println(this + " a devore " + repas + " sur la case [" + getX() + "][" + getY() + "] !");
+            else
+                System.out.println(this + " a mange " + repas + " sur la case [" + getX() + "][" + getY() + "].");
         }
     }
     
@@ -209,13 +264,20 @@ public abstract class Neuneu extends Comestible {
      */
     public static Neuneu genererNeuneu(Case _case) {
         
-        int choix = (int) Math.floor(Math.random()*4) + 1;
+        int choix1 = (int) Math.floor(Math.random()*4) + 1,
+                choix2 = (int) Math.floor(Math.random()*3) + 1;
         
-        switch (choix) {
+        switch (choix1) {
             case 1: return new Lapin(_case);
             case 2: return new Erratique(_case);
             case 3: return new Vorace(_case);
-            case 4: return new Cannibale(_case);
+            case 4:
+                switch (choix2) {
+                    case 1: return new Cannibale(_case);
+                    case 2: return new Lapin(_case);
+                    case 3: return new Vorace(_case);
+                    default: return new Erratique(_case);
+                }
             default: return new Erratique(_case);
         }
     }
@@ -285,5 +347,5 @@ public abstract class Neuneu extends Comestible {
             // NullPointerException dans getX() (this._case est NULL)
         }
     }
-
+    
 }

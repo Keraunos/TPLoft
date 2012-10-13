@@ -22,7 +22,7 @@ public class Fruit extends Nourriture {
     public Fruit(Case _case) {
         this._case = _case;
         this.id = ++Fruit.count;
-        this.valeurGustative = 70;
+        this.valeurGustative = Config.TASTE_FRUIT;
         this.valeurEnerg = 25;
     }
     

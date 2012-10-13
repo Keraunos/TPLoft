@@ -28,15 +28,16 @@ public class Vorace extends Neuneu {
         
         this.valeurEnerg = 42;
         this.energie = Config.MAX_ENERGY;
-        this.fatigueDeplacement = 10;
+        this.fatigueDeplacement = 15;
         this.fatigueCoit = 25;
-        this.valeurGustative = 55;
+        this.fatigueTemps = 1;
+        this.valeurGustative = Config.TASTE_VORACE;
         
     }
     
     
     /**
-     * Deplace le Vorace vers le stock de nourriture le plus proche .
+     * Deplace le Vorace vers la Nourriture la plus proche .
      * On considere que les deplacements en diagonale ne sont pas plus couteux en
      * energie que les deplacements en ligne droite, donc toutes les Cases
      * adjacentes a une Case donnee sont a egale distance de cette derniere.
@@ -46,20 +47,12 @@ public class Vorace extends Neuneu {
     @Override
     public void deplacer() throws LoftException {
         
+        fatiguer();
+        
         // chercher les Nourritures les plus proches
         Nourriture nouProche = (Nourriture) chercher(plateau.getDenrees());
+        allerVers(nouProche);
         
-        // si aucune Nourriture trouvee, se deplacer au hasard
-        if (nouProche == null) {
-            deplacerHasard();
-            return;
-        }
-        
-        // se deplacer vers la Nourriture choisie
-        int dX = (int) Math.signum((float) (nouProche.getX() - getX()));
-        int dY = (int) Math.signum((float) (nouProche.getY() - getY()));
-        Case destination = plateau.getCase(getX() + dX, getY() + dY);
-        allerA(destination);
         manger();
     }
     

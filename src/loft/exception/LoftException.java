@@ -59,9 +59,16 @@ public class LoftException extends Exception {
                 switch (getContext()) {
                     case MOVING_NEUNEU:
                         msg += " d'epuisement en se deplacant";
-                        if (o != null) msg += " sur la case [" + ((Case)o).getX() + "][" + ((Case)o).getY() + "]";
-                    default: msg += ".";
+                        break;
+                    case REPRODUCING_NEUNEU:
+                        msg += " d'epuisement en se reproduisant";
+                        break;
+                    case GETTING_OLDER_NEUNEU:
+                        msg += " d'epuisement faute de nourriture";
+                        break;
                 }
+                if (o != null) msg += " sur la case [" + ((Case)o).getX() + "][" + ((Case)o).getY() + "]";
+                msg += ".";
                 break;
                 
             case FOOD_NOT_ON_SQUARE:
@@ -87,6 +94,9 @@ public class LoftException extends Exception {
         CREATING_CASE,
         GETTING_CASE,
         
+        // Comestible
+        REMOVING_COMESTIBLE,
+        
         // Neuneu
         EATING_NEUNEU,
         EXCLUDING_NEUNEU,
@@ -96,6 +106,7 @@ public class LoftException extends Exception {
         PLACING_NEUNEU,
         MOVING_NEUNEU,
         REPRODUCING_NEUNEU,
+        GETTING_OLDER_NEUNEU,
         
         // Nourriture
         EATING_FOOD,
@@ -111,6 +122,7 @@ public class LoftException extends Exception {
         NEUNEU_IS_DEAD,
         SEARCH_OUT_OF_BOUNDS,
         FOOD_NOT_ON_SQUARE,
+        COMESTIBLE_TYPE_NOT_HANDLED,
     }
     
 }
