@@ -176,6 +176,9 @@ public abstract class Neuneu extends Comestible {
         
         for (Comestible com:((ArrayList<Comestible>)comestibles)) {
             
+            // le Neuneu ne doit pas se choisir lui-meme
+            if (com.equals(this)) continue;
+            
             // distance du Comestible courant
             distance = getDistance(com);
             
