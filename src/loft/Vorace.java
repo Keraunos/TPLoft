@@ -47,30 +47,7 @@ public class Vorace extends Neuneu {
     public void deplacer() throws LoftException {
         
         // chercher les Nourritures les plus proches
-        Nourriture nouProche = null;
-        int distance,
-            distMin = Math.max(Config.BOARD_WIDTH, Config.BOARD_HEIGHT) + 1;
-        
-        // TODO: penser a une methode qui parcoure le plateau par vagues concentriques, en partant d'une case donnee
-        
-        for (Nourriture nou:plateau.getDenrees()) {
-            
-            // distance de la Nourriture courante
-            distance = getDistance(nou);
-            
-            // cas d'un Neuneu plus proche que l'actuel plus proche
-            if (distance < distMin) {
-                distMin = distance;
-                nouProche = nou;
-            }
-            
-            // cas d'une Nourriture aussi proche que l'actuelle plus proche:
-            // choisir la plus attractive
-            else if (distance == distMin && nouProche != null)
-                if (nou.valeurGustative > nouProche.valeurGustative)
-                    nouProche = nou;
-            
-        }
+        Nourriture nouProche = (Nourriture) chercher(plateau.getDenrees());
         
         // si aucune Nourriture trouvee, se deplacer au hasard
         if (nouProche == null) {

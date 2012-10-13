@@ -2,6 +2,7 @@ package loft;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Vector;
 import loft.exception.LoftException;
 
 /**
@@ -153,6 +154,46 @@ public abstract class Neuneu extends Comestible {
             
             if (Config.DEBUG_MODE) System.out.println(this.toString() + " a mange " + repas.toString() + " sur la case [" + getX() + "][" + getY() + "].");
         }
+    }
+    
+    
+    /**
+     * Recupere le Comestible le plus proche et (par ordre de priorite) le plus
+     * attractif autour de ce Neuneu.
+     * 
+     * @param comestibles Objet de la classe ArrayList<Comestible>
+     * @return Comestible
+     */
+    public Comestible chercher(Object comestibles) {
+        
+        // TODO : implementer une methode qui parcoure le plateau par vagues concentriques a partir d'une case donee
+        // afin de reduire le cout de la recherche
+        
+        // chercher les Comestibles les plus proches
+        Comestible comProche = null;
+        int distance,
+            distMin = Math.max(Config.BOARD_WIDTH, Config.BOARD_HEIGHT) + 1;
+        
+        for (Comestible com:((ArrayList<Comestible>)comestibles)) {
+            
+            // distance du Comestible courant
+            distance = getDistance(com);
+            
+            // cas d'un Comestible plus proche que l'actuel plus proche
+            if (distance < distMin) {
+                distMin = distance;
+                comProche = com;
+            }
+            
+            // cas d'un Comestible aussi proche que l'actuel plus proche:
+            // choisir le plus "attractif" (gout ou sex appeal)
+            else if (distance == distMin && comProche != null)
+                if (com.valeurGustative > comProche.valeurGustative)
+                    comProche = com;
+            
+        }
+        
+        return comProche;
     }
     
     

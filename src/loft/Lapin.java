@@ -65,28 +65,7 @@ public class Lapin extends Neuneu {
         }
         
         // chercher les Neuneus les plus proches
-        Neuneu neuProche = null;
-        int distance,
-            distMin = Math.max(Config.BOARD_WIDTH, Config.BOARD_HEIGHT) + 1;
-        
-        for (Neuneu neu:plateau.getPopulation()) {
-            
-            // distance du Neuneu courant
-            distance = getDistance(neu);
-            
-            // cas d'un Neuneu plus proche que l'actuel plus proche
-            if (distance < distMin) {
-                distMin = distance;
-                neuProche = neu;
-            }
-            
-            // cas d'un Neuneu aussi proche que l'actuel plus proche:
-            // choisir le plus "attractif" (la valeur gustative est confondue avec le sex appeal)
-            else if (distance == distMin && neuProche != null)
-                if (neu.valeurGustative > neuProche.valeurGustative)
-                    neuProche = neu;
-            
-        }
+        Neuneu neuProche = (Neuneu) chercher(plateau.getPopulation());
         
         // si aucun Neuneu trouve, se deplacer au hasard
         if (neuProche == null) {
@@ -95,10 +74,12 @@ public class Lapin extends Neuneu {
         }
         
         // se deplacer vers le Neuneu choisi et s'accoupler si possible
-        int dX = (int) Math.signum((float) (neuProche.getX()-getX()));
-        int dY = (int) Math.signum((float) (neuProche.getY()-getY()));
-        Case destination = plateau.getCase(getX()+dX, getY()+dY);
+        int dX = (int) Math.signum((float) (neuProche.getX() - getX()));
+        int dY = (int) Math.signum((float) (neuProche.getY() - getY()));
+        Case destination = plateau.getCase(getX() + dX, getY() + dY);
         allerA(destination);
+        
+        // TODO: fixer une limite max de population par case pour eviter divergence
         if (destination.equals(neuProche._case)) {
             accoupler(neuProche);
             dernierRapport = 0;

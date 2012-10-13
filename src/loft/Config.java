@@ -11,7 +11,7 @@ public class Config {
     protected static final boolean DEBUG_MODE = true;
     protected static final boolean WAIT_FOR_USER = false;
     protected static final boolean WAIT_FOR_ACTION_IN_CONSOLE = false;
-    protected static final long PAUSE_DURATION = 200;
+    protected static final long PAUSE_DURATION = 300;
     protected static final int NB_DISP_ELTS_IN_SQUARE = 4;
     
     // deroulement d'une partie
@@ -22,8 +22,8 @@ public class Config {
     protected static final int BOARD_HEIGHT = 10;
     
     // ratio de remplissage initial du plateau (par rapport au nombre total de cases)
-    protected static final float POPULATION_RATIO = 0.05f;
-    protected static final float FOOD_RATIO = 0.10f;
+    protected static final float POPULATION_RATIO = 0.1f;
+    protected static final float FOOD_RATIO = 0.3f;
     
     // limites basses : declenchent les inclusions de nouveaux Neuneus et Nourritures
     // limites relatives aux quantites initiales
