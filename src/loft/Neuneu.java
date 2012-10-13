@@ -177,17 +177,17 @@ public abstract class Neuneu extends Comestible {
     
     
     /**
-     * Retourne la distance entre ce Neuneu et le Neuneu specifie.
+     * Retourne la distance entre ce Neuneu et le Comestible specifie.
      * On considere que toutes les Cases adjacentes a une Case donnee sont a
      * egale distance de cette derniere. Donc les distances en diagonale sont
      * egales aux distances en ligne droite.
      * 
-     * @param neu Le Neuneu dont il faut evaluer la distance
-     * @return 
+     * @param com Le Comestible dont il faut evaluer la distance
+     * @return La distance
      */
-    public int getDistance(Neuneu neu) {
-        int dX = neu.getX() - getX();
-        int dY = neu.getY() - getY();
+    public int getDistance(Comestible com) {
+        int dX = com.getX() - getX();
+        int dY = com.getY() - getY();
         return Math.max(Math.abs(dX), Math.abs(dY)); 
     }
     

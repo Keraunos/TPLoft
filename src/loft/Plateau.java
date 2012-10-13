@@ -105,12 +105,26 @@ public class Plateau extends ObjetGraphique {
     }
     
     /**
-     * Retourne l'ensemble des Neuneus sur le plateau.
-     * @return 
+     * Retourne l'ensemble des Neuneus sur le Plateau.
+     * @return La liste des Neuneus sur le Plateau.
      */
     public ArrayList<Neuneu> getPopulation() {
         return this.population;
     }
+    
+    
+    /**
+     * Retourne l'ensemble des Nourritures sur le Plateau
+     * @return La liste des Nourritures sur le Plateau.
+     */
+    public ArrayList<Nourriture> getDenrees() {
+        ArrayList<Nourriture> denrees = new ArrayList<Nourriture>();
+        for (int i = 0; i < w; i++)
+            for (int j = 0; j < h; j++)
+                denrees.addAll(cases[i][j].getDenrees());
+        return denrees;
+    }
+    
     
     /**
      * Retourne la Case aux coordonnees specifiees.
@@ -294,7 +308,7 @@ public class Plateau extends ObjetGraphique {
             for (int j = 0; j < h; j ++)
                 cases[i][j].dessiner(g);
         
-        button.repaint();
+        if (Config.WAIT_FOR_USER) button.repaint();
         
     }
     
