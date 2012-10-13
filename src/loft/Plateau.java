@@ -80,7 +80,7 @@ public class Plateau extends ObjetGraphique {
     }
     
     
-    private void init() {
+    public void init() {
         
         estInitialise = true;
         
@@ -264,7 +264,7 @@ public class Plateau extends ObjetGraphique {
         if (!this.estInitialise) return;
         
         // fond de la fenetre
-        Color fond = new Color(250, 250, 220);
+        Color fond = new Color(220, 235, 255);
         g.setColor(fond);
         g.fillRect(0, 0, Config.GUI_WINDOW_WIDTH, Config.GUI_WINDOW_HEIGHT);
         

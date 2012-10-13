@@ -18,6 +18,9 @@ public abstract class Neuneu extends Comestible {
     protected int fatigueDeplacement;
     protected int fatigueCoit;
     protected Plateau plateau;
+    // coordonnees dans le GUI (Affichage)
+    protected Integer guiX = null;
+    protected Integer guiY = null;
     // TODO rajouter la gestion des besoins reproductifs pour tous les Neuneus
     // TODO rajouter une fatigue liee au temps qui passe, meme sans action
     
@@ -91,7 +94,8 @@ public abstract class Neuneu extends Comestible {
             exclure();
             throw new loft.exception.LoftException(
                     LoftException.FailureContext.MOVING_NEUNEU,
-                    LoftException.FailureType.NEUNEU_IS_DEAD);
+                    LoftException.FailureType.NEUNEU_IS_DEAD,
+                    destination);
         }
     }
     
@@ -213,11 +217,23 @@ public abstract class Neuneu extends Comestible {
      */
     @Override
     public void tracer(Graphics g) {
+        int newGuiX = Config.GUI_MARGIN_SIDE + (Config.GUI_SQUARE_SIZE + 1) * getX() + 1;
+        int newGuiY = Config.GUI_MARGIN_TOP + (Config.GUI_SQUARE_SIZE + 1) * getY() + 1 + positionRelative;
         try {
             this.rectangle(g,
-                Config.GUI_MARGIN_SIDE + (Config.GUI_SQUARE_SIZE + 1) * getX() + 1,
-                Config.GUI_MARGIN_TOP + (Config.GUI_SQUARE_SIZE + 1) * getY() + 1 + positionRelative,
+                newGuiX, newGuiY,
                 Config.GUI_NEUNEU_SIZE, Config.GUI_NEUNEU_SIZE);
+            // si le Neuneu se deplace alors tracer sa trajectoire
+            if (guiX != null) {
+                if (newGuiX != guiX || newGuiY != guiY) {
+                    this.trajet(g, guiX + Config.GUI_NEUNEU_SIZE/2,
+                            guiY + Config.GUI_NEUNEU_SIZE/2,
+                            newGuiX + Config.GUI_NEUNEU_SIZE/2,
+                            newGuiY + Config.GUI_NEUNEU_SIZE/2);
+                }
+            }
+            guiX = newGuiX;
+            guiY = newGuiY;
         } catch (Exception e) {
             // TODO Gerer cette exception : pas vraiment un probleme,
             // signifie que ce Neuneu a ete exclu du plateau

@@ -1,6 +1,6 @@
 package loft.exception;
 
-import loft.Neuneu;
+import loft.*;
 
 /**
  * Classe LoftException. Gere les erreurs survenant lors du jeu.
@@ -57,7 +57,9 @@ public class LoftException extends Exception {
             case NEUNEU_IS_DEAD:
                 msg += "Le neuneu " + neu.toString() + " est mort";
                 switch (getContext()) {
-                    case MOVING_NEUNEU: msg += " d'epuisement en se deplacant";
+                    case MOVING_NEUNEU:
+                        msg += " d'epuisement en se deplacant";
+                        if (o != null) msg += " sur la case [" + ((Case)o).getX() + "][" + ((Case)o).getY() + "]";
                     default: msg += ".";
                 }
                 break;

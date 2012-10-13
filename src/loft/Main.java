@@ -28,7 +28,7 @@ public class Main {
             }
         }
         else {
-            plateau.jouerTour();
+            plateau.init();
         }
     }
     

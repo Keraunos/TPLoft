@@ -18,19 +18,19 @@ public class Config {
     protected static final int NB_TURNS = 100;
     
     // dimensions du plateau de jeu
-    protected static final int BOARD_WIDTH = 12;
-    protected static final int BOARD_HEIGHT = 12;
+    protected static final int BOARD_WIDTH = 8;
+    protected static final int BOARD_HEIGHT = 8;
     
     // ratio de remplissage initial du plateau (par rapport au nombre total de cases)
     protected static final float POPULATION_RATIO = 0.1f;
-    protected static final float FOOD_RATIO = 0.8f;
+    protected static final float FOOD_RATIO = 0.3f;
     
     // limites basses : declenchent les inclusions de nouveaux Neuneus et Nourritures
     // limites relatives aux quantites initiales
-    protected static final float POP_LOW_LIMIT_RATIO = 0.2f;//0.5f;
+    protected static final float POP_LOW_LIMIT_RATIO = 0.0f;//0.5f;
     protected static final float FOOD_LOW_LIMIT_RATIO = 1f;//0.5f; 
     // limites absolues
-    protected static final int POP_LOW_LIMIT = 2;//2;
+    protected static final int POP_LOW_LIMIT = 0;//2;
     protected static final int FOOD_LOW_LIMIT = 2;//3;
     
     // energie max et initiale des Neuneus
@@ -43,8 +43,8 @@ public class Config {
     protected static final int GUI_MARGIN_TOP = 22 + GUI_MARGIN_STD;
     protected static final int GUI_MARGIN_SIDE = GUI_MARGIN_STD;
     // taille des Comestibles
-    protected static final int GUI_SQUARE_SIZE = 50;
-    protected static final int GUI_NEUNEU_SIZE = (int) GUI_SQUARE_SIZE / 3;
+    protected static final int GUI_SQUARE_SIZE = 60;
+    protected static final int GUI_NEUNEU_SIZE = (int) GUI_SQUARE_SIZE / 2;
     protected static final int GUI_FOOD_SIZE = (int) GUI_SQUARE_SIZE / 4;
     // dimensions du plateau de jeu
     protected static final int GUI_BOARD_WIDTH = BOARD_WIDTH * (GUI_SQUARE_SIZE + 1) + 1; // 1 est la largeur des lignes entre les cases
