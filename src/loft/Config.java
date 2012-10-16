@@ -10,7 +10,7 @@ public class Config {
     // mode d'execution
     protected static final boolean DEBUG_MODE = true;
     protected static final int NB_DISP_ELTS_IN_SQUARE = 4; // en DEBUG: nb. max de Neuneus (ou de Nourritures) affiches par case dans la console
-    protected static final boolean WAIT_FOR_USER = false; // true: bouton "tour suivant"; false: defilement automatique
+    protected static final boolean WAIT_FOR_USER = true; // true: bouton "tour suivant"; false: defilement automatique
     protected static final boolean WAIT_FOR_ACTION_IN_CONSOLE = false; // en DEBUG: appui sur touche Enter dans console pour tour suivant
     protected static final long PAUSE_DURATION = 300; // en DEBUG: (ms) pause entre 2 tours (defimement automatique)
     
@@ -19,8 +19,8 @@ public class Config {
     protected static final int NB_TURNS = 300;
     
     // dimensions du plateau de jeu
-    protected static final int BOARD_WIDTH = 15;
-    protected static final int BOARD_HEIGHT = 15;
+    protected static final int BOARD_WIDTH = 12;
+    protected static final int BOARD_HEIGHT = 12;
     
     // ratio de remplissage initial du plateau (par rapport au nombre total de cases)
     protected static final float POPULATION_RATIO = 0.1f;
@@ -44,7 +44,7 @@ public class Config {
     protected static final int GUI_MARGIN_TOP = 22 + GUI_MARGIN_STD;
     protected static final int GUI_MARGIN_SIDE = GUI_MARGIN_STD;
     // taille des Comestibles
-    protected static final int GUI_SQUARE_SIZE = 40;
+    protected static final int GUI_SQUARE_SIZE = 50;
     protected static final int GUI_NEUNEU_SIZE = (int) GUI_SQUARE_SIZE / 3;
     protected static final int GUI_FOOD_SIZE = (int) GUI_SQUARE_SIZE / 4;
     // dimensions du plateau de jeu
