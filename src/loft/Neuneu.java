@@ -192,7 +192,7 @@ public abstract class Neuneu extends Comestible {
         if (energie >= Config.MAX_ENERGY) return;
         
         // se nourrir avec les Nourritures presentes sur la Case
-        Comestible repas = null;
+        Comestible repas;
         while (energie < Config.MAX_ENERGY) {
             
             if (this instanceof Cannibale) repas = _case.getMeilleurComestible(this);
@@ -300,24 +300,6 @@ public abstract class Neuneu extends Comestible {
     
     
     /**
-     * Fonction de DEBUG. Affiche l'etat du Neuneu
-     * 
-     * @param mode Mode d'affichage.
-     */
-    public String afficherDebug(int mode) {
-        String str = "";
-        
-        if      (this instanceof Lapin)     str = "L";
-        else if (this instanceof Erratique) str = "E";
-        else if (this instanceof Cannibale) str = "C";
-        else if (this instanceof Vorace)    str = "V";
-        else                                str = "N";
-        
-        return str;
-    }
-    
-    
-    /**
      * Tracer ce Neuneu a gauche de sa Case, aligne verticalement avec les autres
      * Neuneus presents sur la meme Case.
      * @param g 
@@ -348,4 +330,21 @@ public abstract class Neuneu extends Comestible {
         }
     }
     
+    
+    /**
+     * Fonction de DEBUG. Affiche l'etat du Neuneu
+     * 
+     * @param mode Mode d'affichage.
+     */
+    public String afficherDebug(int mode) {
+        String str = "";
+        
+        if      (this instanceof Lapin)     str = "L";
+        else if (this instanceof Erratique) str = "E";
+        else if (this instanceof Cannibale) str = "C";
+        else if (this instanceof Vorace)    str = "V";
+        else                                str = "N";
+        
+        return str;
+    }
 }

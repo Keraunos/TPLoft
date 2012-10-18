@@ -24,6 +24,7 @@ public class Case {
         this.denrees = new ArrayList<Nourriture>();
     }
     
+    
     // accesseurs pour les coordonnees de la case
     public int getX(){
         return this.x;
@@ -31,6 +32,7 @@ public class Case {
     public int getY(){
         return this.y;
     }
+    
     
     // accesseurs pour le contenu de la case
     public ArrayList<Neuneu> getOccupants() {
@@ -106,6 +108,8 @@ public class Case {
      */
     public Nourriture getMeilleureDenree() {
         
+        // TODO: implementer la classe Comparable dans la classe Comestible
+        
         int maxValeurGustative = 0;
         Nourriture meilleureNourriture = null;
         for (Nourriture nourr:denrees) {
@@ -125,6 +129,8 @@ public class Case {
      * @return Le Comestible avec la plus grande valeurGustative trouvee (premiere trouvee)
      */
     public Comestible getMeilleurComestible(Neuneu mangeur) {
+        
+        // TODO: implementer la classe Comparable dans la classe Comestible
         
         Comestible meilleurComestible = null;
         if (getMeilleureDenree() != null) meilleurComestible = getMeilleureDenree();
@@ -156,6 +162,7 @@ public class Case {
         int ordonneeRelative;
         
         // TODO prevoir le cas ou le nb de Neuneus est tres important (ex: affichage des n premiers et du nb total)
+        // TODO factoriser les deux blocs if suivants:
         // dessiner les Neuneus s'il y en a
         if (nbNeu > 0) {
             if (nbNeu == 1) pas = 0;

@@ -36,23 +36,6 @@ public abstract class Nourriture extends Comestible{
     
     
     /**
-     * Fonction de DEBUG. Affiche l'etat du Neuneu
-     * 
-     * @param mode Mode d'affichage.
-     */
-    public String afficherDebug(int mode) {
-        String str = "";
-        
-        if      (this instanceof Fruit)     str = "f";
-        else if (this instanceof Viande)    str = "v";
-        else if (this instanceof Alcool)    str = "a";
-        else                                str = "?";
-        
-        return str;
-    }
-    
-    
-    /**
      * Tracer cette Nourriture a droite de sa Case, alignee verticalement avec
      * les autres presentes sur la meme Case.
      * @param g 
@@ -69,6 +52,23 @@ public abstract class Nourriture extends Comestible{
             // signifie que cette Nourriture a ete exclue du plateau
             // NullPointerException dans getX() (this._case est NULL)
         }
+    }
+    
+    
+    /**
+     * Fonction de DEBUG. Affiche l'etat du Neuneu
+     * 
+     * @param mode Mode d'affichage.
+     */
+    public String afficherDebug(int mode) {
+        String str = "";
+        
+        if      (this instanceof Fruit)     str = "f";
+        else if (this instanceof Viande)    str = "v";
+        else if (this instanceof Alcool)    str = "a";
+        else                                str = "?";
+        
+        return str;
     }
     
 }
