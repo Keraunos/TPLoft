@@ -128,49 +128,73 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <generalization id="19">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
+  <enumeration id="17" corner="BOTTOM_RIGHT" language="java" name="loft.exception.LoftException.FailureContext" 
+    project="TPLoft" file="/TPLoft/src/loft/exception/LoftException.java" binary="false">    
+    <position height="-1" width="-1" x="1738" y="-14"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="18" corner="BOTTOM_RIGHT" language="java" name="loft.exception.LoftException.FailureType" 
+    project="TPLoft" file="/TPLoft/src/loft/exception/LoftException.java" binary="false">    
+    <position height="-1" width="-1" x="1738" y="558"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="loft.exception.LoftException" project="TPLoft" 
+    file="/TPLoft/src/loft/exception/LoftException.java" binary="false">    
+    <position height="-1" width="-1" x="1740" y="315"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
   <generalization id="20">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="9"/>  
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
   </generalization>  
   <generalization id="21">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="14"/>  
   </generalization>  
   <generalization id="22">    
-    <end type="SOURCE" refId="6"/>    
+    <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
   <generalization id="23">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
   </generalization>  
   <generalization id="24">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
   </generalization>  
   <generalization id="25">    
-    <end type="SOURCE" refId="10"/>    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  
   <generalization id="26">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="9"/>  
   </generalization>  
   <generalization id="27">    
-    <end type="SOURCE" refId="5"/>    
+    <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="14"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     visibility="true">    
