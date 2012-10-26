@@ -151,50 +151,48 @@ public class Case {
     
     /**
      * Dessine le contenu de la Case dans l'Affichage
+     * @param g
      */
     public void dessiner(Graphics g) {
-        
-        int nbNeu = occupants.size();
-        int nbNou = denrees.size();
-        // espacement qui sert a distinguer les Comestibles presents sur la meme Case
-        int pas;
-        // distance d'un Comestible au bord superieur de la Case
-        int ordonneeRelative;
-        
-        // TODO prevoir le cas ou le nb de Neuneus est tres important (ex: affichage des n premiers et du nb total)
-        // TODO factoriser les deux blocs if suivants:
-        // dessiner les Neuneus s'il y en a
-        if (nbNeu > 0) {
-            if (nbNeu == 1) pas = 0;
-            else pas = (int) ((float) (Config.GUI_SQUARE_SIZE - Config.GUI_NEUNEU_SIZE) / (nbNeu-1));
 
-            for (int cNeu = 0; cNeu < nbNeu; cNeu++) {
-                //System.out.println("---> case [" + i + "][" + j + "] - neuneu " + occupants.get(cCom));
-                ordonneeRelative = cNeu * pas;
-                try {
-                    occupants.get(cNeu).setPositionRelative(ordonneeRelative);
-                    occupants.get(cNeu).dessiner(g);
-                } catch (IndexOutOfBoundsException ex) {
-                    // ignore exception gracefully
-                }
-            }
-        }
-        
-        // dessiner les Nourritures s'il y en a
-        if (nbNou > 0) {
-            if (nbNou == 1) pas = 0;
-            else pas = (int) ((float) (Config.GUI_SQUARE_SIZE - Config.GUI_FOOD_SIZE) / (nbNou - 1));
+    	this.dessineComestible(denrees, Config.GUI_FOOD_SIZE, g);
+    	this.dessineComestible(occupants, Config.GUI_NEUNEU_SIZE, g);
 
-            for (int cNou = 0; cNou < nbNou; cNou++) {
-                ordonneeRelative = cNou * pas;
-                try {
-                    denrees.get(cNou).setPositionRelative(ordonneeRelative);
-                    denrees.get(cNou).dessiner(g);
-                } catch (IndexOutOfBoundsException ex) {
-                    // ignore exception gracefully
-                }
-            }
-        }
+    }
+    
+    
+    
+    /**
+     * Dessine un commestible, la methode est appelee par la methode dessiner
+     * 
+     * @param listeComestibles liste des commestibles a dessiner
+     * @param commestibleSize taille des commestibles a dessiner
+     * @param g
+     */
+    private void dessineComestible(Object listeComestibles, int commestibleSize, Graphics g) {
+    	int nb = ((ArrayList<Comestible>) listeComestibles).size();
+    	// espacement qui sert a distinguer les Comestibles presents sur la meme Case
+    	int pas;
+    	// distance d'un Comestible au bord superieur de la Case
+    	int ordonneeRelative;
+
+    	// TODO prevoir le cas ou le nb de Comestibles est tres important (ex: affichage des n premiers et du nb total)
+    	// dessiner les Commestibles s'il y en a
+    	if (nb>0){
+    		if (nb == 1) pas = 0;
+    		else pas = (int) ((float) (Config.GUI_SQUARE_SIZE - commestibleSize) / (nb-1));
+
+    		for (int c = 0; c < nb; c++) {
+    			//System.out.println("---> case [" + i + "][" + j + "] - neuneu " + occupants.get(cCom));
+    			ordonneeRelative = c * pas;
+    			try {
+    				((ArrayList<Comestible>) listeComestibles).get(c).setPositionRelative(ordonneeRelative);
+    				((ArrayList<Comestible>) listeComestibles).get(c).dessiner(g);
+    			} catch (IndexOutOfBoundsException ex) {
+    				// ignore exception gracefully
+    			}
+    		}
+    	}
     }
     
     

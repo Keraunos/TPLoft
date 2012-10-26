@@ -4,3 +4,6 @@ build/*
 build.xml
 manifest.mf
 dist/*
+bin/*
+.classpath
+.project
